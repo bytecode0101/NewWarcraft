@@ -17,11 +17,6 @@ namespace Warcraft
         {
 
         }
-
-        public File1(int a, int b)
-        {
-
-        }
         
         public File1(int a, int b, int c)
         {
