@@ -8,5 +8,11 @@ namespace Warcraft
 {
     class File2
     {
+        // Update
+        public void Change1()
+        {
+
+        }
     }
+       
 }
