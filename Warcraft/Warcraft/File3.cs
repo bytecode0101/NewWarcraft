@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Warcraft
 {
-    class File3
+    public class File3
     {
+    public void Fisier3()
+        {
+
+        }
     }
+   
+
 }
