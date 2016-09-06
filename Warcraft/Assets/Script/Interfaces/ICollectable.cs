@@ -1,0 +1,4 @@
+﻿interface ICollectable
+{
+    bool IsCollectable();
+}
