@@ -68,43 +68,8 @@ class Main : MonoBehaviour
         int numResources = total - numNonspace - numSpace - numEnemy - numMercenery - numDangers;
         int[] numElements = new int[] { numNonspace, numSpace, numEnemy, numMercenery, numDangers, numResources };
 
-        while (true) { 
-            
-        }
+        
 
-        for (int i = 0; i < gameSettings.BoardHeight; i++)
-        {
-            for (int j = 0; j < gameSettings.BoardWidth; j++)
-            {
-                switch (ofType)
-                {
-                    case ElementDefinition.NONSPACE:
-                        if (numNonspace > 0)
-                        {
-                            numNonspace--;
-                            sharedMap.Spaces[j, i] = new Element();
-                        }
-                        else
-                        {
-                            RandomizeOnBoard
-                        }
-                        break;
-                    case ElementDefinition.SPACE:
-
-                        break;
-                    case ElementDefinition.RESOURCE:
-                        break;
-                    case ElementDefinition.DANGER:
-                        break;
-                    case ElementDefinition.ENEMY:
-                        break;
-                    case ElementDefinition.MERCENARIES:
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        }
+        
     }
 }
