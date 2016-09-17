@@ -4,7 +4,7 @@ using System.Collections;
 public class SharedMap {
 
     GameSettings gameSettings = new GameSettings();
-    public Element[,] Spaces;
+    public GameObject[,] Spaces;
     internal int Width;
     internal int Height;
 
@@ -12,13 +12,13 @@ public class SharedMap {
     {
         Width = width;
         Height = height;
-        Spaces = new Element[Width, Height];
+        Spaces = new GameObject[Width, Height];
     }
 
     public SharedMap()
     {
         Width = gameSettings.BoardWidth;
         Height = gameSettings.BoardHeight;
-        Spaces = new Element[Width, Height];
+        Spaces = new GameObject[Width, Height];
     }
 }

@@ -30,7 +30,7 @@ public class DiceThrower : MonoBehaviour {
         int numOfDices = gameSettings.NumberOfDices;
         for (var i = 0; i < numOfDices; i++)
         {
-            var myObj = (GameObject)Instantiate(diceGameObject, new Vector2(100, 150 * (i + 1)), Quaternion.identity);
+            var myObj = (GameObject)Instantiate(diceGameObject, new Vector2(100, -30 * (i + 1)), Quaternion.identity);
 
             //if(myObj) // CONSIDER: maybe needed?
             //Dices.Add(myObj);
@@ -55,7 +55,7 @@ public class DiceThrower : MonoBehaviour {
             var valueReceived = item.Throw();
             diceSum += item.Throw();
             Debug.Log(valueReceived);
-            DicesTexts[index].text = "Dice " + (index + 1) + ": " + valueReceived;
+            DicesTexts[index].text = "Dice [" + (index + 1) + "]: " + valueReceived;
             index++;
         }
 

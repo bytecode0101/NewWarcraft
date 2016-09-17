@@ -9,20 +9,20 @@
     internal int BoardWidth;
     internal int BoardHeight;
 
-    internal int PercentageResources = 50;
-    internal int PercentageSpace = 20;
-    internal int PercentageNonSpace = 10;
-    internal int PercentageEnemy = 6;
-    internal int PercentageMercenery = 6;
-    internal int PercentageDangers = 8;
+    internal float PercentageResources = .50F;
+    internal float PercentageSpace = .20F;
+    internal float PercentageNonSpace = .10F;
+    internal float PercentageEnemy = .06F;
+    internal float PercentageMercenery = .06F;
+    internal float PercentageDangers = .08F;
     internal int ElementTypeCount;
    
 
     public GameSettings()
     {
         ElementTypeCount = ElementDefinition.GetNames(typeof(ElementDefinition)).Length;
-        BoardWidth = 15 * NumberOfPlayers;
-        BoardHeight = 10 * NumberOfPlayers;
+        BoardWidth = 10;//15 * NumberOfPlayers;
+        BoardHeight = 5;//10 * NumberOfPlayers;
     }
-
+    
 }

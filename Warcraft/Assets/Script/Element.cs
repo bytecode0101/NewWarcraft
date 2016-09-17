@@ -1,4 +1,4 @@
-﻿public class Element 
+﻿public class Element
 {
     internal ElementType Type;
 }
