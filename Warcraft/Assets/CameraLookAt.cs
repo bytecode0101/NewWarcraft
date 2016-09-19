@@ -9,12 +9,13 @@ public class CameraLookAt : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        Camera.transform.LookAt(LookAt.transform);
+        //Camera.transform.LookAt(LookAt.transform);
 	}
 
 
     void Update()
     {
-        Camera.transform.LookAt(LookAt.transform);
+        //Camera.transform.
+        //Camera.transform.LookAt(LookAt.transform);
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 class Main : MonoBehaviour
 {
+
+    //
+    // !! Space data is only temporary. remove after testing to something more well thought
+    //
+
     int startOnWidth = 0;
     int startOnHeight = 0;
 
@@ -14,11 +19,77 @@ class Main : MonoBehaviour
 
     public GameObject emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace;
 
+    public List<GameObject> PawnObject = new List<GameObject>();
+
     public void Start()
     {
         //sharedMap = new SharedMap();
         ElementInit();
 
+    }
+
+    Vector3 playerMoveTarget, playerStartPoint;
+
+    public bool playerNotMoving = true;
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && playerNotMoving)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+
+                var pawnPos = PawnObject[0].GetComponent<SpaceData>();
+                var currPos = hit.transform.GetComponent<SpaceData>();
+
+                // wall collide - to place in a switch | state area
+                if (!sharedMap.Spaces[currPos.X, currPos.Y].transform.name.Contains(filledSpace.name))
+                {
+                    
+                    if (!(pawnPos.X == currPos.X && pawnPos.Y == currPos.Y) &&
+                        (((pawnPos.X + 1 == currPos.X || pawnPos.X - 1 == currPos.X) && pawnPos.Y == currPos.Y) ||
+                        ((pawnPos.Y + 1 == currPos.Y || pawnPos.Y - 1 == currPos.Y) && pawnPos.X == currPos.X)))
+                    {
+                        Debug.Log("Got here");
+                        var vec = new Vector3((currPos.X - pawnPos.X) * tileDistanceX,
+                                                                         0,
+                                                                         (currPos.Y - pawnPos.Y) * tileDistanceY);
+
+                        playerNotMoving = false;
+                        playerMoveTarget = vec;
+                        playerStartPoint = PawnObject[0].transform.position;
+
+                        pawnPos.X = currPos.X;
+                        pawnPos.Y = currPos.Y;
+
+
+                    }
+                }              
+            }
+        }
+
+        var onX = playerStartPoint.x - PawnObject[0].transform.position.x;
+        var onZ = playerStartPoint.z - PawnObject[0].transform.position.z;
+        if (!playerNotMoving &&
+            Math.Abs(onX) < tileDistanceX &&
+            Math.Abs(onZ) < tileDistanceY)
+        {
+            PawnObject[0].transform.Translate(playerMoveTarget * Time.deltaTime * 1.5f);
+            Camera.main.transform.position = new Vector3(   PawnObject[0].transform.position.x,
+                                                            50,
+                                                            PawnObject[0].transform.position.z);
+        }
+        else
+        {
+            if (!playerNotMoving)
+            {
+                playerNotMoving = true;
+                PawnObject[0].transform.position = new Vector3(-105 + PawnObject[0].GetComponent<SpaceData>().X * tileDistanceX,
+                                                                PawnObject[0].transform.position.y,
+                                                                -75 + PawnObject[0].GetComponent<SpaceData>().Y * tileDistanceY);
+            }
+        }
     }
 
     void ElementInit()
@@ -31,14 +102,17 @@ class Main : MonoBehaviour
         ListSharedMap(rowsSharedMap);
     }
 
+    public float tileDistanceX = 10f;
+    public float tileDistanceY = 10f;
+
     void ListSharedMap(List<List<GameObject>> rowsSharedMap)
     {
         GameObject tempobj = null;
 
         int offX = 0;
         int offY = 0;
-        int onx = 1;
-        int ony = 1;
+        float onx = tileDistanceX;
+        float ony = tileDistanceY;
 
         var itemCount = rowsSharedMap.Count;
         var itemInCount = rowsSharedMap[0].Count;
@@ -48,15 +122,23 @@ class Main : MonoBehaviour
         {
             for (var i = 0; i < itemInCount; i++)
             {
-                tempobj = (GameObject)Instantiate(rowsSharedMap[j][i],
-                                                    new Vector3(i * onx + offX, 1, j * ony + offY),
-                                                    Quaternion.identity);
+
+                tempobj = (GameObject)Instantiate(rowsSharedMap[j][i]);
                 tempobj.transform.SetParent(boardHolder.transform);
+                tempobj.transform.localPosition = new Vector3(i * onx + offX, tempobj.transform.localScale.y + .05f, j * ony + offY);
+                
+                // temporary solution
+                tempobj.GetComponent<SpaceData>().X = i;
+                tempobj.GetComponent<SpaceData>().Y = j;                
+
                 sharedMap.Spaces[i, j] = tempobj;
             }
         }
-    }
 
+        // temporary hack so that the resources get offseted in the center of the tile rather than the start of the tile
+        boardHolder.transform.Translate(new Vector3(5f, 0, 5f));
+    }
+    
     List<List<GameObject>> TempSharedMap()
     {
         var rowsSharedMap = new List<List<GameObject>>();
