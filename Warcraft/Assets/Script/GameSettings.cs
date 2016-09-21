@@ -1,5 +1,10 @@
 ﻿class GameSettings
 {
+    // temporary used static here. consider placing in another area
+    internal static int diceMoves = 0;
+    internal static bool hasDiceAdvantage = false;
+
+    //
     internal int NumberOfDices = 2;
     internal int NumberOfPlayers = 3;
 
@@ -15,8 +20,7 @@
     internal float PercentageEnemy = .06F;
     internal float PercentageMercenery = .06F;
     internal float PercentageDangers = .08F;
-    internal int ElementTypeCount;
-   
+    internal int ElementTypeCount;    
 
     public GameSettings()
     {

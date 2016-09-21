@@ -11,8 +11,8 @@ public class DiceThrower : MonoBehaviour {
     public GameObject diceHolderGobj;
     public GameObject diceGameObject;
     //internal List<GameObject> Dices;
-    internal List<Dice> DicesScripts;
-    internal List<Text> DicesTexts;
+    public List<Dice> DicesScripts;
+    public List<Text> DicesTexts;
 
     void Start()
     {
@@ -30,13 +30,17 @@ public class DiceThrower : MonoBehaviour {
         int numOfDices = gameSettings.NumberOfDices;
         for (var i = 0; i < numOfDices; i++)
         {
-            var myObj = (GameObject)Instantiate(diceGameObject, new Vector2(100, -30 * (i + 1)), Quaternion.identity);
+            // don't remove the gameObject casting as is.
+            var myObj = (GameObject)Instantiate(diceGameObject);
 
             //if(myObj) // CONSIDER: maybe needed?
             //Dices.Add(myObj);
-            
+
             myObj.transform.SetParent(diceHolderGobj.transform);
             //CONSIDER: maybe add a check if it is component present
+
+            myObj.transform.localPosition = new Vector3(-50, 20 * (i), 0);
+            myObj.transform.localScale = Vector3.one;
             
             DicesScripts.Add(myObj.GetComponent<Dice>());
             DicesTexts.Add(myObj.GetComponent<Text>());
@@ -47,17 +51,17 @@ public class DiceThrower : MonoBehaviour {
     {
         int index = 0;
         int diceSum = 0;
-
-        Debug.Log("aaaaa" + DicesScripts.Count);
+        
         foreach (var item in DicesScripts)
         {
-            Debug.Log("bbbbb" + DicesTexts[index]);
             var valueReceived = item.Throw();
             diceSum += item.Throw();
             Debug.Log(valueReceived);
             DicesTexts[index].text = "Dice [" + (index + 1) + "]: " + valueReceived;
+            GameSettings.diceMoves += valueReceived;
             index++;
         }
+        GameSettings.diceMoves += GameSettings.hasDiceAdvantage ? 1 : 0;
 
         Log(diceSum);
 

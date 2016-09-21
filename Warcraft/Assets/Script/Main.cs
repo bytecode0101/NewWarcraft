@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 class Main : MonoBehaviour
 {
@@ -8,6 +9,7 @@ class Main : MonoBehaviour
     //
     // !! Space data is only temporary. remove after testing to something more well thought
     //
+    public Text debugDiceMovementObj;
 
     int startOnWidth = 0;
     int startOnHeight = 0;
@@ -30,44 +32,68 @@ class Main : MonoBehaviour
 
     Vector3 playerMoveTarget, playerStartPoint;
 
+    public int debugDiceMovement = 0;
+
     public bool playerNotMoving = true;
     public void Update()
     {
+
+        debugDiceMovement = GameSettings.diceMoves;
+
         if (Input.GetMouseButtonDown(0) && playerNotMoving)
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100))
+            if (GameSettings.diceMoves > 0)
             {
 
-                var pawnPos = PawnObject[0].GetComponent<SpaceData>();
-                var currPos = hit.transform.GetComponent<SpaceData>();
-
-                // wall collide - to place in a switch | state area
-                if (!sharedMap.Spaces[currPos.X, currPos.Y].transform.name.Contains(filledSpace.name))
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 100))
                 {
-                    
-                    if (!(pawnPos.X == currPos.X && pawnPos.Y == currPos.Y) &&
-                        (((pawnPos.X + 1 == currPos.X || pawnPos.X - 1 == currPos.X) && pawnPos.Y == currPos.Y) ||
-                        ((pawnPos.Y + 1 == currPos.Y || pawnPos.Y - 1 == currPos.Y) && pawnPos.X == currPos.X)))
+
+                    var pawnPos = PawnObject[0].GetComponent<SpaceData>();
+                    var currPos = hit.transform.GetComponent<SpaceData>();
+
+                    // wall collide - to place in a switch | state area
+                    if (hit.transform.CompareTag("onBoardElement") &&
+                        !sharedMap.Spaces[currPos.X, currPos.Y].transform.name.Contains(filledSpace.name))
                     {
-                        Debug.Log("Got here");
-                        var vec = new Vector3((currPos.X - pawnPos.X) * tileDistanceX,
-                                                                         0,
-                                                                         (currPos.Y - pawnPos.Y) * tileDistanceY);
 
-                        playerNotMoving = false;
-                        playerMoveTarget = vec;
-                        playerStartPoint = PawnObject[0].transform.position;
+                        if (!(pawnPos.X == currPos.X && pawnPos.Y == currPos.Y) &&
+                            (((pawnPos.X + 1 == currPos.X || pawnPos.X - 1 == currPos.X) && pawnPos.Y == currPos.Y) ||
+                            ((pawnPos.Y + 1 == currPos.Y || pawnPos.Y - 1 == currPos.Y) && pawnPos.X == currPos.X)))
+                        {
+                            Debug.Log("Got here");
+                            var vec = new Vector3((currPos.X - pawnPos.X) * tileDistanceX,
+                                                                             0,
+                                                                             (currPos.Y - pawnPos.Y) * tileDistanceY);
 
-                        pawnPos.X = currPos.X;
-                        pawnPos.Y = currPos.Y;
+                            playerNotMoving = false;
+                            playerMoveTarget = vec;
+                            playerStartPoint = PawnObject[0].transform.position;
 
+                            pawnPos.X = currPos.X;
+                            pawnPos.Y = currPos.Y;
 
+                            // to use broadcast or navigate in node from diceThrower to the main since they are siblings
+                            GameSettings.diceMoves--;
+
+                            debugDiceMovementObj.text = GameSettings.diceMoves.ToString();
+
+                            ManageHitSpace(hit);
+
+                        }
                     }
-                }              
+
+                }
+            }
+            else
+            {
+                // add logic here
+                Debug.developerConsoleVisible = true;
+                Debug.Log("Please roll dice to proceed");
             }
         }
+
 
         var onX = playerStartPoint.x - PawnObject[0].transform.position.x;
         var onZ = playerStartPoint.z - PawnObject[0].transform.position.z;
@@ -76,8 +102,8 @@ class Main : MonoBehaviour
             Math.Abs(onZ) < tileDistanceY)
         {
             PawnObject[0].transform.Translate(playerMoveTarget * Time.deltaTime * 1.5f);
-            Camera.main.transform.position = new Vector3(   PawnObject[0].transform.position.x,
-                                                            50,
+            Camera.main.transform.position = new Vector3(PawnObject[0].transform.position.x,
+                                                            Camera.main.transform.position.y,
                                                             PawnObject[0].transform.position.z);
         }
         else
@@ -90,6 +116,26 @@ class Main : MonoBehaviour
                                                                 -75 + PawnObject[0].GetComponent<SpaceData>().Y * tileDistanceY);
             }
         }
+    }
+
+    private void ManageHitSpace(RaycastHit hit)
+    {
+
+        var hitMesh = hit.transform.GetComponent<MeshRenderer>();
+        hitMesh.enabled = false;
+
+        var hitLight = hit.transform.gameObject.GetComponentsInChildren<MeshRenderer>();
+        if (hitLight != null)
+        { 
+            foreach (var item in hitLight)
+            {
+                if (item.gameObject != hitMesh.gameObject)
+                {
+                    item.enabled = true;
+                    break;
+                }
+            }
+        }        
     }
 
     void ElementInit()
@@ -126,10 +172,10 @@ class Main : MonoBehaviour
                 tempobj = (GameObject)Instantiate(rowsSharedMap[j][i]);
                 tempobj.transform.SetParent(boardHolder.transform);
                 tempobj.transform.localPosition = new Vector3(i * onx + offX, tempobj.transform.localScale.y + .05f, j * ony + offY);
-                
+
                 // temporary solution
                 tempobj.GetComponent<SpaceData>().X = i;
-                tempobj.GetComponent<SpaceData>().Y = j;                
+                tempobj.GetComponent<SpaceData>().Y = j;
 
                 sharedMap.Spaces[i, j] = tempobj;
             }
@@ -138,7 +184,7 @@ class Main : MonoBehaviour
         // temporary hack so that the resources get offseted in the center of the tile rather than the start of the tile
         boardHolder.transform.Translate(new Vector3(5f, 0, 5f));
     }
-    
+
     List<List<GameObject>> TempSharedMap()
     {
         var rowsSharedMap = new List<List<GameObject>>();
