@@ -23,6 +23,8 @@ class Main : MonoBehaviour
 
     public List<GameObject> PawnObject = new List<GameObject>();
 
+    public List<GameObject> resourceElements = new List<GameObject>();
+
     public void Start()
     {
         //sharedMap = new SharedMap();
@@ -81,6 +83,8 @@ class Main : MonoBehaviour
 
                             ManageHitSpace(hit);
 
+                            DoPlayerUpdate(hit);
+
                         }
                     }
 
@@ -102,9 +106,9 @@ class Main : MonoBehaviour
             Math.Abs(onZ) < tileDistanceY)
         {
             PawnObject[0].transform.Translate(playerMoveTarget * Time.deltaTime * 1.5f);
-            Camera.main.transform.position = new Vector3(PawnObject[0].transform.position.x,
-                                                            Camera.main.transform.position.y,
-                                                            PawnObject[0].transform.position.z);
+            //Camera.main.transform.position = new Vector3(PawnObject[0].transform.position.x,
+              //                                              Camera.main.transform.position.y,
+                //                                            PawnObject[0].transform.position.z);
         }
         else
         {
@@ -118,16 +122,51 @@ class Main : MonoBehaviour
         }
     }
 
+    private void DoPlayerUpdate(RaycastHit hit)
+    {
+        //emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace;
+        // maybe a chain of command here?
+        if (hit.transform.name.Equals(resourceSpace.name)) 
+        {
+
+            //show the dialog
+            // show the five elements needed
+            GetRandomResource();
+            
+        }
+        else if(hit.transform.name.Equals(dangerSpace.name))
+        {
+            //show the dialog
+            // a random card. pay some resources / fight / flee (with some chances of escape
+        }
+        else if (hit.transform.name.Equals(mercenarySpace.name))
+        {
+            //show the dialog
+            // hire some mercenary to protected your fort |
+            // a risk that they will be swayed by your opponent when they siege your place
+            // change some resources for others
+        }
+    }
+
+    private void GetRandomResource()
+    {
+        if(resourceElements.Count > 0) { 
+            var tempResource = resourceElements[(int)UnityEngine.Random.Range(0,
+                                                resourceElements.Count - 1)];
+            //PawnObject[0].GetComponent<PawnData>().AddResource(tempResource);
+        }
+    }
+
     private void ManageHitSpace(RaycastHit hit)
     {
 
         var hitMesh = hit.transform.GetComponent<MeshRenderer>();
         hitMesh.enabled = false;
 
-        var hitLight = hit.transform.gameObject.GetComponentsInChildren<MeshRenderer>();
-        if (hitLight != null)
+        var hitChild = hit.transform.gameObject.GetComponentsInChildren<MeshRenderer>();
+        if (hitChild != null)
         { 
-            foreach (var item in hitLight)
+            foreach (var item in hitChild)
             {
                 if (item.gameObject != hitMesh.gameObject)
                 {
