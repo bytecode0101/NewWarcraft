@@ -19,17 +19,23 @@ class Main : MonoBehaviour
 
     public GameObject boardHolder;
 
-    public GameObject emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace;
+    public GameObject emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace, baseSpace;
+
+    public GameObject DiceGui, wonGui;
 
     public List<GameObject> PawnObject = new List<GameObject>();
 
-    public List<GameObject> resourceElements = new List<GameObject>();
+    public List<GameObject> resourcesOnPawnP1 = new List<GameObject>();
+    public List<GameObject> resourcesOnPawnP2 = new List<GameObject>();
+
+    public List<GameObject> resourcesInBaseP1 = new List<GameObject>();
+    public List<GameObject> resourcesInBaseP2 = new List<GameObject>();
+
 
     public void Start()
     {
         //sharedMap = new SharedMap();
         ElementInit();
-
     }
 
     Vector3 playerMoveTarget, playerStartPoint;
@@ -52,7 +58,7 @@ class Main : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, 100))
                 {
 
-                    var pawnPos = PawnObject[0].GetComponent<SpaceData>();
+                    var pawnPos = PawnObject[GameSettings.playerTurn].GetComponent<SpaceData>();
                     var currPos = hit.transform.GetComponent<SpaceData>();
 
                     // wall collide - to place in a switch | state area
@@ -71,7 +77,7 @@ class Main : MonoBehaviour
 
                             playerNotMoving = false;
                             playerMoveTarget = vec;
-                            playerStartPoint = PawnObject[0].transform.position;
+                            playerStartPoint = PawnObject[GameSettings.playerTurn].transform.position;
 
                             pawnPos.X = currPos.X;
                             pawnPos.Y = currPos.Y;
@@ -81,9 +87,37 @@ class Main : MonoBehaviour
 
                             debugDiceMovementObj.text = GameSettings.diceMoves.ToString();
 
-                            ManageHitSpace(hit);
+                            var currHitState = hit.transform.GetComponent<MeshRenderer>().enabled;
+                            if (!hit.transform.name.Contains("Base3D") && currHitState)
+                            {
+                                ManageHitSpace(hit);
+                            }
+                            if (currHitState)
+                            { 
+                                DoPlayerUpdate(hit);
+                            }
 
-                            DoPlayerUpdate(hit);
+
+                            CheckBattle();
+
+                            if (GameSettings.diceMoves == 0 && GameSettings.IsGameOn)
+                            {
+                                GameSettings.playerTurn = (++GameSettings.playerTurn) % GameSettings.totalPlayers;
+                                
+                                Camera.main.GetComponent<StandardAssetFollowTarget>().target = PawnObject[GameSettings.playerTurn].transform;
+                                
+                            }
+
+                            if (!GameSettings.IsGameOn)
+                            {
+                                Debug.Log("Game Ended! Someone won");
+                                DiceGui.SetActive(false);
+                                wonGui.SetActive(true);
+                                foreach (var item in PawnObject)
+                                {
+                                    item.SetActive(false);
+                                }
+                            }
 
                         }
                     }
@@ -99,73 +133,192 @@ class Main : MonoBehaviour
         }
 
 
-        var onX = playerStartPoint.x - PawnObject[0].transform.position.x;
-        var onZ = playerStartPoint.z - PawnObject[0].transform.position.z;
+        var onX = playerStartPoint.x - PawnObject[GameSettings.playerTurn].transform.position.x;
+        var onZ = playerStartPoint.z - PawnObject[GameSettings.playerTurn].transform.position.z;
         if (!playerNotMoving &&
             Math.Abs(onX) < tileDistanceX &&
             Math.Abs(onZ) < tileDistanceY)
         {
-            PawnObject[0].transform.Translate(playerMoveTarget * Time.deltaTime * 1.5f);
-            //Camera.main.transform.position = new Vector3(PawnObject[0].transform.position.x,
-              //                                              Camera.main.transform.position.y,
-                //                                            PawnObject[0].transform.position.z);
+            PawnObject[GameSettings.playerTurn].transform.Translate(playerMoveTarget * Time.deltaTime * 1.5f);
+
+            //Camera.main.transform.position = new Vector3(PawnObject[GameSettings.playerTurn].transform.position.x,
+            //                                              Camera.main.transform.position.y,
+            //                                            PawnObject[GameSettings.playerTurn].transform.position.z);
         }
         else
         {
             if (!playerNotMoving)
             {
                 playerNotMoving = true;
-                PawnObject[0].transform.position = new Vector3(-105 + PawnObject[0].GetComponent<SpaceData>().X * tileDistanceX,
-                                                                PawnObject[0].transform.position.y,
-                                                                -75 + PawnObject[0].GetComponent<SpaceData>().Y * tileDistanceY);
+                PawnObject[GameSettings.playerTurn].transform.position = new Vector3(-105 + PawnObject[GameSettings.playerTurn].GetComponent<SpaceData>().X * tileDistanceX,
+                                                                PawnObject[GameSettings.playerTurn].transform.position.y,
+                                                                -75 + PawnObject[GameSettings.playerTurn].GetComponent<SpaceData>().Y * tileDistanceY);
             }
         }
+    }
+    
+    private void CheckBattle()
+    {
+        // place the judge pattern from here
     }
 
     private void DoPlayerUpdate(RaycastHit hit)
     {
         //emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace;
         // maybe a chain of command here?
-        if (hit.transform.name.Equals(resourceSpace.name)) 
+        if (hit.transform.name.Contains("Resource3D")) // maybe use a tag here?
         {
 
             //show the dialog
             // show the five elements needed
             GetRandomResource();
-            
+
         }
-        else if(hit.transform.name.Equals(dangerSpace.name))
+        else if (hit.transform.name.Contains("Danger3D")) // maybe use a tag here?
         {
+            DangerResource();
+
             //show the dialog
             // a random card. pay some resources / fight / flee (with some chances of escape
         }
-        else if (hit.transform.name.Equals(mercenarySpace.name))
+        else if (hit.transform.name.Contains("Mercenary3D")) // maybe use a tag here?
         {
+            MercenaryResource();
+
             //show the dialog
             // hire some mercenary to protected your fort |
             // a risk that they will be swayed by your opponent when they siege your place
             // change some resources for others
         }
+        else if (hit.transform.name.Contains("Base3D"))
+        {
+            int total = DisplaceResources();
+
+            /////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
+            var res = CheckIfGameWonTemporary(total);
+            if (res) GameSettings.IsGameOn = false;
+            /////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////
+        }
+    }
+
+    private void DangerResource()
+    {
+        ChanceResource(2);
+    }
+
+    private void MercenaryResource()
+    {
+        ChanceResource(8);
+    }
+
+    private void ChanceResource(int winChance)
+    {
+        int res = UnityEngine.Random.Range(0, 10);
+        int count = resourcesInBaseP1.Count;
+
+        var resourceOnPawn = (GameSettings.playerTurn == 0) ?  resourcesOnPawnP1 : resourcesOnPawnP2;
+
+        while(res - winChance > 0)
+        { 
+            for (int i = 0; i < count; i++)
+            {
+                var tempComponent = resourceOnPawn[i].GetComponentInChildren<Text>();
+                var strVal = tempComponent.text.ToString();
+                int intVal = 0;
+
+                if (int.TryParse(strVal, out intVal))
+                {
+                    if (intVal > 0)
+                    {
+                        tempComponent.text = (winChance >= 5) ? (++intVal).ToString() : (--intVal).ToString();
+                    }
+                    
+                }
+            }
+            res--;
+        }
+
+    }
+
+    private int DisplaceResources()
+    {
+        int total = 0;
+
+        int count = resourcesOnPawnP1.Count;
+        for (int i = 0; i < count; i++)
+        {
+
+            var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
+            var resourcesInBase = (GameSettings.playerTurn == 0) ? resourcesInBaseP1 : resourcesInBaseP2;
+            
+            var tempComponent = resourceOnPawn[i].GetComponentInChildren<Text>();
+            var tempComponentBase = resourcesInBase[i].GetComponentInChildren<Text>();
+
+            if (tempComponent && tempComponentBase)
+            {
+                var strVal = tempComponent.text.ToString();
+                var strValBase = tempComponentBase.text.ToString();
+
+                int intVal = 0;
+                int intValBase = 0;
+
+                if (int.TryParse(strVal, out intVal) && int.TryParse(strValBase, out intValBase))
+                {
+                    tempComponent.text = "0";                    
+                    tempComponentBase.text = (intVal + intValBase).ToString();
+
+                    //////////////////////////////////////////
+                    //////////////////////////////////////////
+                    //////////////////////////////////////////
+                    total += intVal + intValBase;
+                }
+            }
+        }
+
+        return total;
+    }
+
+    private bool CheckIfGameWonTemporary(int total)
+    {
+        return (total > GameSettings.winTarget);
     }
 
     private void GetRandomResource()
     {
-        if(resourceElements.Count > 0) { 
-            var tempResource = resourceElements[(int)UnityEngine.Random.Range(0,
-                                                resourceElements.Count - 1)];
-            //PawnObject[0].GetComponent<PawnData>().AddResource(tempResource);
+        if (resourcesOnPawnP1.Count > 0)
+        {
+            var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
+
+            var tempResource = resourceOnPawn[(int)UnityEngine.Random.Range(0,
+                                                resourceOnPawn.Count)];
+
+            // simpler to do it this way ~however is inneficient than to keep track
+            var tempComponent = tempResource.GetComponentInChildren<Text>();
+            if (tempComponent)
+            {
+                var strVal = tempComponent.text.ToString();
+                int intVal = 0;
+                if (int.TryParse(strVal, out intVal))
+                {
+                    tempComponent.text = (++intVal).ToString();
+
+                }
+            }
         }
     }
 
     private void ManageHitSpace(RaycastHit hit)
     {
-
         var hitMesh = hit.transform.GetComponent<MeshRenderer>();
         hitMesh.enabled = false;
 
         var hitChild = hit.transform.gameObject.GetComponentsInChildren<MeshRenderer>();
         if (hitChild != null)
-        { 
+        {
             foreach (var item in hitChild)
             {
                 if (item.gameObject != hitMesh.gameObject)
@@ -174,7 +327,7 @@ class Main : MonoBehaviour
                     break;
                 }
             }
-        }        
+        }
     }
 
     void ElementInit()
@@ -229,7 +382,7 @@ class Main : MonoBehaviour
         var rowsSharedMap = new List<List<GameObject>>();
 
         rowsSharedMap.Add(new List<GameObject>() {
-                emptySpace, emptySpace, emptySpace, resourceSpace,
+                baseSpace, emptySpace, emptySpace, resourceSpace,
                 emptySpace, filledSpace, resourceSpace, filledSpace,
                 mercenarySpace, filledSpace, resourceSpace, emptySpace,
                 filledSpace, filledSpace, emptySpace, emptySpace,
@@ -374,9 +527,10 @@ class Main : MonoBehaviour
             filledSpace,dangerSpace,emptySpace,filledSpace,
             filledSpace,resourceSpace,resourceSpace,filledSpace,
             dangerSpace,resourceSpace,resourceSpace,dangerSpace,
-            dangerSpace,emptySpace
+            dangerSpace,baseSpace
         });
 
         return rowsSharedMap;
     }
+
 }

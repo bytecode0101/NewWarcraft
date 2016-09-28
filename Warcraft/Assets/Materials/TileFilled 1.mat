@@ -7,10 +7,10 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: TileFilled 1
-  m_Shader: {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -218,10 +218,6 @@ Material:
         second: 0
       data:
         first:
-          name: _InvFade
-        second: 1
-      data:
-        first:
           name: _Stencil
         second: 0
       data:
@@ -248,6 +244,10 @@ Material:
         first:
           name: _Strength
         second: .238000005
+      data:
+        first:
+          name: _InvFade
+        second: 1
       data:
         first:
           name: _BaseLight

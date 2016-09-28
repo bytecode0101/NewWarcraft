@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Images\IMPORTANT.txt" />
+    <None Include="Assets\Images\glass and cristals.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
   </ItemGroup>

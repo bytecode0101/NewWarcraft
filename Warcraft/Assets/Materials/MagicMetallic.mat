@@ -7,11 +7,12 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MagicMetallic
-  m_Shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHABLEND_ON
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -20,7 +21,7 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 2800000, guid: 30f068a5a6b0bf448a43292806e12989, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: .5, y: .5}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -159,11 +160,11 @@ Material:
       data:
         first:
           name: _SrcBlend
-        second: 1
+        second: 5
       data:
         first:
           name: _DstBlend
-        second: 0
+        second: 10
       data:
         first:
           name: _Cutoff
@@ -187,7 +188,7 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 1
+        second: 0
       data:
         first:
           name: _Glossiness
@@ -211,15 +212,11 @@ Material:
       data:
         first:
           name: _Mode
-        second: 0
+        second: 2
       data:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _InvFade
-        second: 1
       data:
         first:
           name: _Stencil
@@ -250,6 +247,10 @@ Material:
         second: .238000005
       data:
         first:
+          name: _InvFade
+        second: 1
+      data:
+        first:
           name: _BaseLight
         second: .349999994
       data:
@@ -268,7 +269,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: 1, b: 1, a: .602999985}
       data:
         first:
           name: _SpecColor

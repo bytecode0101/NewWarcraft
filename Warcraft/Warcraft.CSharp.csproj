@@ -89,11 +89,14 @@
     <Compile Include="Assets\Script\Pawn.cs" />
     <Compile Include="Assets\Script\PawnData.cs" />
     <Compile Include="Assets\Script\Resource.cs" />
+    <Compile Include="Assets\Script\ResourceLightMovement.cs" />
     <Compile Include="Assets\Script\SharedMap.cs" />
     <Compile Include="Assets\Script\SpaceData.cs" />
+    <Compile Include="Assets\Script\StandardAssetFollowTarget.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Images\IMPORTANT.txt" />
+    <None Include="Assets\Images\glass and cristals.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
   </ItemGroup>

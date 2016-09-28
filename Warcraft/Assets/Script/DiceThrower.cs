@@ -39,7 +39,7 @@ public class DiceThrower : MonoBehaviour {
             myObj.transform.SetParent(diceHolderGobj.transform);
             //CONSIDER: maybe add a check if it is component present
 
-            myObj.transform.localPosition = new Vector3(-50, 20 * (i), 0);
+            myObj.transform.localPosition = new Vector3(0, 15 * (i) - 5, 0);
             myObj.transform.localScale = Vector3.one;
             
             DicesScripts.Add(myObj.GetComponent<Dice>());
@@ -49,24 +49,33 @@ public class DiceThrower : MonoBehaviour {
 
     public void Throw()
     {
-        int index = 0;
-        int diceSum = 0;
-        
-        foreach (var item in DicesScripts)
+        if (GameSettings.diceMoves == 0)
         {
-            var valueReceived = item.Throw();
-            diceSum += item.Throw();
-            Debug.Log(valueReceived);
-            DicesTexts[index].text = "Dice [" + (index + 1) + "]: " + valueReceived;
-            GameSettings.diceMoves += valueReceived;
-            index++;
+            int index = 0;
+            int diceSum = 0;
+
+            foreach (var item in DicesScripts)
+            {
+                var valueReceived = item.Throw();
+                diceSum += item.Throw();
+                Debug.Log(valueReceived);
+                DicesTexts[index].text = "Dice [" + (index + 1) + "]: " + valueReceived;
+                GameSettings.diceMoves += valueReceived;
+                index++;
+            }
+            // the hasAdvantage was for the case where the pawn got
+            // stuck (because it could not backtrack and couldn't move in another spot). Also good for tactics
+            // discussed and should stick with what is needed
+            //GameSettings.diceMoves += GameSettings.hasDiceAdvantage ? 1 : 0;
+
+            Log(diceSum);
+
         }
-        GameSettings.diceMoves += GameSettings.hasDiceAdvantage ? 1 : 0;
-
-        Log(diceSum);
-
-
-       // return diceSum;
+        else
+        {
+            Debug.Log("Consume all points before rolling");
+        }
+        // return diceSum;
     }
 
     internal void Log(int diceSum)

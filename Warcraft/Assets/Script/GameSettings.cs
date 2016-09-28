@@ -6,7 +6,7 @@
 
     //
     internal int NumberOfDices = 2;
-    internal int NumberOfPlayers = 3;
+    internal int NumberOfPlayers = 2;
 
     internal int DiceMin = 1;
     internal int DiceMax = 7;
@@ -20,7 +20,12 @@
     internal float PercentageEnemy = .06F;
     internal float PercentageMercenery = .06F;
     internal float PercentageDangers = .08F;
-    internal int ElementTypeCount;    
+    internal int ElementTypeCount;
+    internal static int totalPlayers = 2;
+    internal static int playerTurn = 0;
+
+    public static bool IsGameOn = true;
+    internal static int winTarget = 1;
 
     public GameSettings()
     {
