@@ -25,7 +25,7 @@
     internal static int playerTurn = 0;
 
     public static bool IsGameOn = true;
-    internal static int winTarget = 1;
+    internal static int winTarget = 10;
 
     public GameSettings()
     {
