@@ -54,20 +54,28 @@ namespace Assets.Script.States
             }
         }
 
-        private List<GameObject> InstantiateGameObject(BoardTiles.Tile tile, int i)
+        private GameObject InstantiateGameObject(BoardTiles.Tile tile, int i)
         {
+            float tileDistanceX = GameSettings.DistanceX;
+            float tileDistanceY = GameSettings.DistanceY;
+            int offsetX = 0;
+            int offsetY = 0;
+            float onx = tileDistanceX;
+            float ony = tileDistanceY;
+            
             if (prefabs.Keys.Contains(tile.value))
             {
                 var prefab = prefabs[tile.value];
-                var tempobj = (GameObject)Instantiate(prefab);
-                tempobj.transform.SetParent(main.boardHolder.transform);
+                var tempObj = (GameObject)Instantiate(prefab);
+                tempObj.transform.SetParent(main.boardHolder.transform);
                 var row = i / width;
                 var cell = i % width;
-                tempobj.transform.localPosition = new Vector3(row * onx + offX, tempobj.transform.localScale.y + .05f, cell * ony + offY);
+                tempObj.transform.localPosition = new Vector3(row * onx + offsetX, tempObj.transform.localScale.y + .05f, cell * ony + offsetY);
 
-                // temporary solution
-                tempobj.GetComponent<SpaceData>().X = i;
-                tempobj.GetComponent<SpaceData>().Y = j;
+                tempObj.GetComponent<SpaceData>().X = row;
+                tempObj.GetComponent<SpaceData>().Y = cell;
+
+                return tempObj;
             }
             return null;
         }

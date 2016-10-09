@@ -29,6 +29,9 @@
 
     public static string BoardPath = "/StreamingAssets/Maps/";
 
+    public static float DistanceX = 10f;
+    public static float DistanceY = 10f;
+
     public GameSettings()
     {
         ElementTypeCount = ElementDefinition.GetNames(typeof(ElementDefinition)).Length;
