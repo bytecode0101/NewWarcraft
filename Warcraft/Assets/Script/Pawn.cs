@@ -1,13 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Xml.Serialization;
 
-
+[Serializable()]
 public class Pawn : MonoBehaviour
 {
+    private int battery;
+    private Point position;
+    private int id;
 
-    internal int battery;
-    internal int position;
-    internal int id;
+    [XmlElement("Position")]
+    internal Point Position
+    {
+        get
+        {
+            return position;
+        }
+
+        set
+        {
+            position = value;
+        }
+    }
+
+    [XmlElement("Id")]
+    internal int Id
+    {
+        get
+        {
+            return id;
+        }
+
+        set
+        {
+            id = value;
+        }
+    }
+
+    [XmlElement("Battery")]
+    internal int Battery
+    {
+        get
+        {
+            return battery;
+        }
+
+        set
+        {
+            battery = value;
+        }
+    }
 
     internal int MoveTo()
     {

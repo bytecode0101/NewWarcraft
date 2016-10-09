@@ -1,4 +1,5 @@
 ﻿using Assets.Script.States;
+using Assets.Script.Models;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -132,7 +133,7 @@ class Main : MonoBehaviour
                                 ManageHitSpace(hit);
                             }
                             if (currHitState)
-                            { 
+                            {
                                 DoPlayerUpdate(hit);
                             }
 
@@ -142,9 +143,9 @@ class Main : MonoBehaviour
                             if (GameSettings.diceMoves == 0 && GameSettings.IsGameOn)
                             {
                                 GameSettings.playerTurn = (++GameSettings.playerTurn) % GameSettings.totalPlayers;
-                                
+
                                 Camera.main.GetComponent<StandardAssetFollowTarget>().target = PawnObject[GameSettings.playerTurn].transform;
-                                
+
                             }
 
                             if (!GameSettings.IsGameOn)
@@ -195,7 +196,7 @@ class Main : MonoBehaviour
             }
         }
     }
-    
+
     private void CheckBattle()
     {
         // place the judge pattern from here
@@ -259,10 +260,10 @@ class Main : MonoBehaviour
         int res = UnityEngine.Random.Range(0, 10);
         int count = resourcesInBaseP1.Count;
 
-        var resourceOnPawn = (GameSettings.playerTurn == 0) ?  resourcesOnPawnP1 : resourcesOnPawnP2;
+        var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
 
-        while(res - winChance > 0)
-        { 
+        while (res - winChance > 0)
+        {
             for (int i = 0; i < count; i++)
             {
                 var tempComponent = resourceOnPawn[i].GetComponentInChildren<Text>();
@@ -275,7 +276,7 @@ class Main : MonoBehaviour
                     {
                         tempComponent.text = (winChance >= 5) ? (++intVal).ToString() : (--intVal).ToString();
                     }
-                    
+
                 }
             }
             res--;
@@ -293,7 +294,7 @@ class Main : MonoBehaviour
 
             var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
             var resourcesInBase = (GameSettings.playerTurn == 0) ? resourcesInBaseP1 : resourcesInBaseP2;
-            
+
             var tempComponent = resourceOnPawn[i].GetComponentInChildren<Text>();
             var tempComponentBase = resourcesInBase[i].GetComponentInChildren<Text>();
 
@@ -307,7 +308,7 @@ class Main : MonoBehaviour
 
                 if (int.TryParse(strVal, out intVal) && int.TryParse(strValBase, out intValBase))
                 {
-                    tempComponent.text = "0";                    
+                    tempComponent.text = "0";
                     tempComponentBase.text = (intVal + intValBase).ToString();
 
                     //////////////////////////////////////////
@@ -569,6 +570,20 @@ class Main : MonoBehaviour
             dangerSpace,baseSpace
         });
 
+        Map m = new Map();
+
+        int y = 0;
+        foreach (var row in rowsSharedMap)
+        {
+            int x = 0;
+            foreach (var cell in row)
+            {
+                m.UpdateCell(y, x, rowsSharedMap[y][x].name);
+                x++;
+            }
+            x = 0;
+            y++;
+        }
         return rowsSharedMap;
     }
 
