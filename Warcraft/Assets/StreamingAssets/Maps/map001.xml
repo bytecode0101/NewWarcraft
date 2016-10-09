@@ -4,7 +4,7 @@
 		<Tile value="base3d"/>
 		<Tile value="empty3d"/>
 		<Tile value="empty3d"/>
-		<Tile value="resource3d" >
+		<Tile value="resource3d">
 			<TileResChildren>
 				<TileResChild value="air" weight="1" randomCoeficient="1"/>
 				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
