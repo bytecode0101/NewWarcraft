@@ -5,36 +5,36 @@ namespace Assets.Script.UtilsIO
 {
     internal class JsonSerializerHandler<T> : SerializerHandler<T> where T : class
     {
-        public override T ManageLoad(SourceType sourceType, string path, T headClass)
+        public override T Load(SourceType sourceType, string path, T headClass)
         {
             if (sourceType != SourceType.JSON)
             {
                 if (NextSource != null)
                 {
-                    return NextSource.ManageLoad(sourceType, path, headClass);
+                    return NextSource.Load(sourceType, path, headClass);
                 }
             }
             else
             {
-                var srjson = new SerializerJson();
+                var srjson = new SerializerJson<T>();
                 return srjson.Load(path) as T;
             }
 
             return null;
         }
 
-        public override bool ManageSave(SourceType sourceType, string path, T headClass)
+        public override bool Save(SourceType sourceType, string path, T headClass)
         {
             if (sourceType != SourceType.JSON)
             {
                 if (NextSource != null)
                 {
-                    return NextSource.ManageSave(sourceType, path, headClass);
+                    return NextSource.Save(sourceType, path, headClass);
                 }
             }
             else
             {
-                var srjson = new SerializerJson();
+                var srjson = new SerializerJson<T>();
                 return srjson.Save(path, this);
             }
 

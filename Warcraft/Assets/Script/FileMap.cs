@@ -41,7 +41,7 @@ namespace Assets.Script
         {
             var path = string.Format("{0}{1}{2}", Application.dataPath, GameSettings.BoardPath, str);
 
-            map = serializer.ManageLoad(SourceType.XML, path, headClass);
+            map = serializer.Load(SourceType.XML, path, headClass);
         }
 
         public T GetMap()

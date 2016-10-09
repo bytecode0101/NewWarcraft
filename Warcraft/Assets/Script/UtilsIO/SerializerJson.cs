@@ -8,7 +8,7 @@ using Assets.Script.UtilsIO;
 using Assets.Script.BoardTiles;
 using System.IO;
 
-public class SerializerJson : ISourceSerializable
+public class SerializerJson<T> : ISourceSerializable<T>
 {
     public bool Save(string path, object toSerialize)
     {
@@ -23,14 +23,14 @@ public class SerializerJson : ISourceSerializable
 
     }
 
-    public TileContainer Load(string path)
+    public T Load(string path)
     {
         using (StreamReader sr = new StreamReader(path))
         {
             var content = sr.ReadToEnd();
             
             // TODO: maybe add a catch here
-            return JsonConvert.DeserializeObject<TileContainer>(content);
+            return JsonConvert.DeserializeObject<T>(content);
         }        
     }
 }

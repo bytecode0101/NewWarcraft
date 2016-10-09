@@ -9,36 +9,36 @@ namespace Assets.Script.UtilsIO
         // however that might change for a different source implementation
         // still pondering about this
 
-        public override T ManageLoad(SourceType sourceType, string path, T headClass)
+        public override T Load(SourceType sourceType, string path, T headClass)
         {
             if (sourceType != SourceType.XML)
             {
                 if (NextSource != null)
                 {
-                    return NextSource.ManageLoad(sourceType, path, headClass);
+                    return NextSource.Load(sourceType, path, headClass);
                 }
             }
             else
             {
-                var srxml = new SerializerXML();
+                var srxml = new SerializerXML<T>();
                 return srxml.Load(path) as T;
             }
 
             return null;
         }
 
-        public override bool ManageSave(SourceType sourceType, string path, T headClass)
+        public override bool Save(SourceType sourceType, string path, T headClass)
         {
             if (sourceType != SourceType.XML)
             {
                 if (NextSource != null)
                 {
-                    return ManageSave(sourceType, path, headClass);
+                    return Save(sourceType, path, headClass);
                 }
             }
             else
             {
-                var srxml = new SerializerXML();
+                var srxml = new SerializerXML<T>();
                 return srxml.Save(path, this);
             }
 

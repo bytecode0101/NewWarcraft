@@ -7,10 +7,10 @@ using System.Text;
 using System.Xml.Serialization;
 
 namespace Assets.Script.UtilsIO
-{    
+{
     // using the following tutorial / code (and, thanks to):
     // http://wiki.unity3d.com/index.php?title=Saving_and_Loading_Data:_XmlSerializer
-    class SerializerXML : ISourceSerializable
+    class SerializerXML<T> : ISourceSerializable<T> where T : class
     {
         public bool Save(string path, object toSerialize)
         {
@@ -22,20 +22,13 @@ namespace Assets.Script.UtilsIO
             }
         }
 
-        public TileContainer Load(string path)
+        public T Load(string path)
         {
-            var serializer = new XmlSerializer(typeof(TileContainer));
+            var serializer = new XmlSerializer(typeof(T));
             using (var stream = new FileStream(path, FileMode.Open))
             {
-                return serializer.Deserialize(stream) as TileContainer;
+                return (T)serializer.Deserialize(stream);
             }
-        }
-
-        //Loads the xml directly from the given string. Useful in combination with www.text.
-        public TileContainer LoadFromText(string text)
-        {
-            var serializer = new XmlSerializer(typeof(TileContainer));
-            return serializer.Deserialize(new StringReader(text)) as TileContainer;
         }
     }
 }

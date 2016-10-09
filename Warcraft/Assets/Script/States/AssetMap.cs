@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Script.BoardTiles;
 using UnityEngine;
 
 namespace Assets.Script
@@ -8,13 +9,19 @@ namespace Assets.Script
     {
         private string mapString;
         List<List<string>> map;
-        
+        private TileContainer currentStringMap;
+
         public AssetMap(List<List<string>> currentStringMap)
         {
             this.map = currentStringMap;
             MakeMap();
         }
-        
+
+        public AssetMap(TileContainer currentStringMap)
+        {
+
+        }
+
         internal void MakeMap()
         {
             MakeMap(mapString);

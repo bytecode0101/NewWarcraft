@@ -26,7 +26,6 @@ class Main : MonoBehaviour
     public GameObject prefabPlayerPanel;
     
     public List<GameObject> prefabTiles;
-    public GameObject prefabEmptyTile, prefabFilledTile, prefabDangerTile, prefabMercenaryTile, prefabResourceTile, prefabBaseTile;
 
     #endregion
 
@@ -74,7 +73,6 @@ class Main : MonoBehaviour
 
     public void aStart()
     {
-        //sharedMap = new SharedMap();
         ElementInit();
     }
 
@@ -372,11 +370,7 @@ class Main : MonoBehaviour
 
     void ElementInit()
     {
-
-        ////////////////////// row 1
-
         var rowsSharedMap = TempSharedMap();
-
         ListSharedMap(rowsSharedMap);
     }
 

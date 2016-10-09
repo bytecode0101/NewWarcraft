@@ -2,9 +2,9 @@
 
 namespace Assets.Script.UtilsIO
 {
-    internal interface ISourceSerializable
+    internal interface ISourceSerializable<T>
     {
         bool Save(string path, object toSerialize);
-        TileContainer Load(string path);
+        T Load(string path);
     }
 }
