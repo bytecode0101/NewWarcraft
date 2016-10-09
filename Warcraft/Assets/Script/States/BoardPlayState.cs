@@ -56,8 +56,8 @@ namespace Assets.Script.States
         {
             float tileDistanceX = GameSettings.DistanceX;
             float tileDistanceY = GameSettings.DistanceY;
-            int offsetX = 0;
-            int offsetY = 0;
+            float offsetX = 5;
+            float offsetY = 5;
             float onx = tileDistanceX;
             float ony = tileDistanceY;
             
@@ -72,7 +72,7 @@ namespace Assets.Script.States
 
                 tempObj.GetComponent<SpaceData>().X = row;
                 tempObj.GetComponent<SpaceData>().Y = cell;
-                UpdateTile(row, cell, tempObj);
+                //UpdateTile(row, cell, tempObj);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Assets.Script.States
         /// <param name="tempObj"></param>
         private void UpdateTile(int row, int cell, GameObject tempObj)
         {
-            main.currentBoardMap;
+            main.currentBoardMap[row][cell] = tempObj;
         }
     }
 }
