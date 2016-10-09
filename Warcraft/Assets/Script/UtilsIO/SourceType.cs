@@ -1,0 +1,4 @@
+﻿enum SourceType{
+    JSON,
+    XML
+}

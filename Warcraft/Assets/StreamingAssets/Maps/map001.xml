@@ -1,0 +1,781 @@
+<?xml version="1.0"?>
+<XMLMap width="22" height="16">
+	<Tiles>
+		<Tile value="base"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="mercenary"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="mercenary"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="mercenary"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="mercenary"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="mercenary"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="mercenary"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="mercenary"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="empty"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="empty"/>
+		<Tile value="filled"/>
+		<Tile value="filled"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="filled"/>
+		<Tile value="danger"/>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="resource">
+			<TileResChildren>
+				<TileResChild value="air" weight="1" randomCoeficient="1"/>
+				<TileResChild value="earth" weight="1" randomCoeficient="1"/>
+				<TileResChild value="life" weight="1" randomCoeficient="1"/>
+				<TileResChild value="light" weight="1" randomCoeficient="1"/>
+				<TileResChild value="water" weight="1" randomCoeficient="1"/>
+			</TileResChildren>
+		</Tile>
+		<Tile value="danger"/>
+		<Tile value="danger"/>
+		<Tile value="base"/>
+	</Tiles>
+</XMLMap>

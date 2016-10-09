@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcab6e230dfd1a4b99d1d3ffeaa466f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  X: 21
-  Y: 15
+  X: 0
+  Y: 0
 --- !u!114 &101155173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,13 +1320,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 458040513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 550c529ad3e6bfe45ad673d91fcb38c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceHolderGobj: {fileID: 1645228258}
-  diceGameObject: {fileID: 153752, guid: ee6cb0f32e5cb204792ed983d0442a9c, type: 2}
+  diceHolderGobj: {fileID: 0}
+  diceGameObject: {fileID: 0}
   DicesScripts: []
   DicesTexts: []
 --- !u!4 &458040515
@@ -1352,43 +1352,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f41e1d5ed8cba4f940256112273e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugDiceMovementObj: {fileID: 677058059}
-  boardHolder: {fileID: 1620082275}
-  emptySpace: {fileID: 118704, guid: 58aaa8a2ba07c3f4ea841ba023841c80, type: 2}
-  filledSpace: {fileID: 163342, guid: 579d1e1df55910d4f8f41e73c81c39c9, type: 2}
-  dangerSpace: {fileID: 110980, guid: afaa44016b0ad0c44b1af9b5398f32a5, type: 2}
-  mercenarySpace: {fileID: 187604, guid: de72dbef18fb3944d8b01e74a9fd3768, type: 2}
-  resourceSpace: {fileID: 148686, guid: 2c8a82219989e394787dac7d4923ed57, type: 2}
-  baseSpace: {fileID: 118704, guid: bec97fa7a24e1e1408dd2164be376dca, type: 2}
-  DiceGui: {fileID: 1962666332}
-  wonGui: {fileID: 1746387127}
-  PawnObject:
-  - {fileID: 356357285}
-  - {fileID: 101155170}
-  resourcesOnPawnP1:
-  - {fileID: 594068058}
-  - {fileID: 1155236035}
-  - {fileID: 1704791067}
-  - {fileID: 2060526841}
-  - {fileID: 773386232}
-  resourcesOnPawnP2:
-  - {fileID: 589240072}
-  - {fileID: 357142491}
-  - {fileID: 1644109123}
-  - {fileID: 1681637543}
-  - {fileID: 1076998272}
-  resourcesInBaseP1:
-  - {fileID: 1376958758}
-  - {fileID: 810427696}
-  - {fileID: 1918095471}
-  - {fileID: 344121980}
-  - {fileID: 740346512}
-  resourcesInBaseP2:
-  - {fileID: 589240072}
-  - {fileID: 357142491}
-  - {fileID: 1644109123}
-  - {fileID: 1681637543}
-  - {fileID: 1076998272}
+  prefabDiceGUI: {fileID: 0}
+  prefabPawn: {fileID: 0}
+  prefabPlayerPanel: {fileID: 0}
+  prefabTiles: []
+  prefabEmptyTile: {fileID: 0}
+  prefabFilledTile: {fileID: 0}
+  prefabDangerTile: {fileID: 0}
+  prefabMercenaryTile: {fileID: 0}
+  prefabResourceTile: {fileID: 0}
+  prefabBaseTile: {fileID: 0}
+  boardPawns: []
+  currentBoardMapPath: 
+  debugDiceMovementObj: {fileID: 0}
+  boardHolder: {fileID: 0}
+  emptySpace: {fileID: 0}
+  filledSpace: {fileID: 0}
+  dangerSpace: {fileID: 0}
+  mercenarySpace: {fileID: 0}
+  resourceSpace: {fileID: 0}
+  baseSpace: {fileID: 0}
+  DiceGui: {fileID: 0}
+  wonGui: {fileID: 0}
+  PawnObject: []
+  resourcesOnPawnP1: []
+  resourcesOnPawnP2: []
+  resourcesInBaseP1: []
+  resourcesInBaseP2: []
   debugDiceMovement: 0
   playerNotMoving: 1
   tileDistanceX: 10
@@ -2791,13 +2781,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 822346886}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9231e302ba658994ba04942065ece9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 356357288}
-  offset: {x: 0, y: 70, z: 0}
+  target: {fileID: 0}
+  offset: {x: 0, y: 7.5, z: 0}
 --- !u!1 &862863980
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,49 @@
-﻿using System;
+﻿using Assets.Script.States;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+class Game
+{
+    // add a states machine // for game states
+
+    // gui elements get updated (observer)
+
+
+    
+
+}
+
 class Main : MonoBehaviour
 {
+
+    #region assets needed
+
+    public GameObject prefabDiceGUI;
+    public GameObject prefabPawn;
+    public GameObject prefabPlayerPanel;
+    
+    public List<GameObject> prefabTiles;
+    public GameObject prefabEmptyTile, prefabFilledTile, prefabDangerTile, prefabMercenaryTile, prefabResourceTile, prefabBaseTile;
+
+    #endregion
+
+    public List<GameObject> boardPawns;
+    public List<List<GameObject>> currentBoardMap;
+    public string currentBoardMapPath;
+
+    public void Start()
+    {
+        currentBoardMapPath = "map001.xml";
+        var MyState = new BoardPlayState(this);
+        MyState.DoState();
+    }
+    
+
+    /// <summary>
+    /// ////////////////////////////////////////////////////////
+    /// </summary>
 
     //
     // !! Space data is only temporary. remove after testing to something more well thought
@@ -32,7 +71,7 @@ class Main : MonoBehaviour
     public List<GameObject> resourcesInBaseP2 = new List<GameObject>();
 
 
-    public void Start()
+    public void aStart()
     {
         //sharedMap = new SharedMap();
         ElementInit();
@@ -43,7 +82,7 @@ class Main : MonoBehaviour
     public int debugDiceMovement = 0;
 
     public bool playerNotMoving = true;
-    public void Update()
+    public void aUpdate()
     {
 
         debugDiceMovement = GameSettings.diceMoves;
@@ -341,7 +380,7 @@ class Main : MonoBehaviour
     }
 
     public float tileDistanceX = 10f;
-    public float tileDistanceY = 10f;
+    public float tileDistanceY = 10f;    
 
     void ListSharedMap(List<List<GameObject>> rowsSharedMap)
     {

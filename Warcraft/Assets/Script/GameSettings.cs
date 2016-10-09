@@ -27,6 +27,8 @@
     public static bool IsGameOn = true;
     internal static int winTarget = 10;
 
+    public static string BoardPath = "/StreamingAssets/Maps/";
+
     public GameSettings()
     {
         ElementTypeCount = ElementDefinition.GetNames(typeof(ElementDefinition)).Length;
