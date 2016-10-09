@@ -76,6 +76,12 @@ namespace Assets.Script.States
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="cell"></param>
+        /// <param name="tempObj"></param>
         private void UpdateTile(int row, int cell, GameObject tempObj)
         {
             main.currentBoardMap;
