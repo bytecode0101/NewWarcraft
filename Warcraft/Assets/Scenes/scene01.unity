@@ -1389,7 +1389,9 @@ MonoBehaviour:
   baseSpace: {fileID: 0}
   DiceGui: {fileID: 1962666332}
   wonGui: {fileID: 0}
-  PawnObject: []
+  PawnObject:
+  - {fileID: 356357285}
+  - {fileID: 101155170}
   resourcesOnPawnP1: []
   resourcesOnPawnP2: []
   resourcesInBaseP1: []

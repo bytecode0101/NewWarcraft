@@ -4,43 +4,48 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Script.BoardTiles;
+using System.Linq;
 
 class Game
 {
     // add a states machine // for game states
 
     // gui elements get updated (observer)
-
-
-    
-
 }
 
 class Main : MonoBehaviour
 {
-
-    #region assets needed
-
     public GameObject prefabDiceGUI;
     public GameObject prefabPawn;
     public GameObject prefabPlayerPanel;
-    
     public List<GameObject> prefabTiles;
-
-    #endregion
-
     public List<GameObject> boardPawns;
     public List<List<GameObject>> currentBoardMap;
     public string currentBoardMapPath;
 
+    private Dictionary<string, GameObject> prefabs;
+
+  
+
     public void Start()
     {
+        InitPrefabs();
+        sharedMap = new SharedMap();
         currentBoardMapPath = "map001.xml";
         var MyState = new BoardPlayState(this);
         MyState.DoState();
     }
-    
 
+    private void InitPrefabs()
+    {
+        prefabs = new Dictionary<string, GameObject>();
+
+        foreach (var prefabTile in prefabTiles)
+        {
+            prefabs.Add(prefabTile.name.ToLower(), prefabTile);
+        }
+    }
     /// <summary>
     /// ////////////////////////////////////////////////////////
     /// </summary>
@@ -81,7 +86,7 @@ class Main : MonoBehaviour
     public int debugDiceMovement = 0;
 
     public bool playerNotMoving = true;
-    public void aUpdate()
+    public void Update()
     {
 
         debugDiceMovement = GameSettings.diceMoves;
@@ -100,8 +105,8 @@ class Main : MonoBehaviour
                     var currPos = hit.transform.GetComponent<SpaceData>();
 
                     // wall collide - to place in a switch | state area
-                    if (hit.transform.CompareTag("onBoardElement") &&
-                        !sharedMap.Spaces[currPos.X, currPos.Y].transform.name.Contains(filledSpace.name))
+                    if (hit.transform.CompareTag("onBoardElement") )
+                       // && hit.transform.GetComponent<SpaceData>().x)
                     {
 
                         if (!(pawnPos.X == currPos.X && pawnPos.Y == currPos.Y) &&
@@ -375,7 +380,8 @@ class Main : MonoBehaviour
     }
 
     public float tileDistanceX = 10f;
-    public float tileDistanceY = 10f;    
+    public float tileDistanceY = 10f;
+    public int Width { get; internal set; }
 
     void ListSharedMap(List<List<GameObject>> rowsSharedMap)
     {
@@ -581,4 +587,27 @@ class Main : MonoBehaviour
         return rowsSharedMap;
     }
 
+    public void InstantiateGameObject(Tile tile, int i)
+    {
+        float tileDistanceX = GameSettings.DistanceX;
+        float tileDistanceY = GameSettings.DistanceY;
+        float offsetX = 5;
+        float offsetY = 5;
+        float onx = tileDistanceX;
+        float ony = tileDistanceY;
+
+        if (prefabs.Keys.Contains(tile.value))
+        {
+            var prefab = prefabs[tile.value];
+            var tempObj = (GameObject)Instantiate(prefab);
+            tempObj.transform.SetParent(boardHolder.transform);
+            var row = i / Width;
+            var cell = i % Width;
+            tempObj.transform.localPosition = new Vector3(row * onx + offsetX, tempObj.transform.localScale.y + .05f, cell * ony + offsetY);
+
+            tempObj.GetComponent<SpaceData>().X = row;
+            tempObj.GetComponent<SpaceData>().Y = cell;
+            //UpdateTile(row, cell, tempObj);
+        }
+    }
 }
