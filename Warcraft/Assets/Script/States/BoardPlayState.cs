@@ -32,21 +32,19 @@ namespace Assets.Script.States
 
         public void DoState()
         {
-            ReadMap(main.currentBoardMap,
-                    main.currentBoardMapPath);
+            ReadMap();
         }
 
-        private void ReadMap(List<List<GameObject>> currentBoardMap,
-                            string currentBoardMapPath)
+        private void ReadMap()
         {
-            if (currentBoardMap == null)
+            if (main.currentBoardMap == null)
             {
-                var fileMap = new FileMap<BoardTiles.TileContainer>(currentBoardMapPath, new BoardTiles.TileContainer());
+                var fileMap = new FileMap<TileContainer>(main.currentBoardMapPath, new TileContainer());
                 var currentStringMap = fileMap.GetMap();
                 width = currentStringMap.width;
                 for (int i = 0; i < currentStringMap.Tiles.Length; i++)
                 {
-                    currentBoardMap.Add(InstantiateGameObject(currentStringMap.Tiles[i], i));
+                    InstantiateGameObject(currentStringMap.Tiles[i], i);
                 }
 
                 var assetMap = new AssetMap(currentStringMap);
@@ -54,7 +52,7 @@ namespace Assets.Script.States
             }
         }
 
-        private GameObject InstantiateGameObject(BoardTiles.Tile tile, int i)
+        private void InstantiateGameObject(Tile tile, int i)
         {
             float tileDistanceX = GameSettings.DistanceX;
             float tileDistanceY = GameSettings.DistanceY;
@@ -74,10 +72,13 @@ namespace Assets.Script.States
 
                 tempObj.GetComponent<SpaceData>().X = row;
                 tempObj.GetComponent<SpaceData>().Y = cell;
-
-                return tempObj;
+                UpdateTile(row, cell, tempObj);
             }
-            return null;
+        }
+
+        private void UpdateTile(int row, int cell, GameObject tempObj)
+        {
+            main.currentBoardMap;
         }
     }
 }
