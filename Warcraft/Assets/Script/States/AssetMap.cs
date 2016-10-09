@@ -44,10 +44,9 @@ namespace Assets.Script
             throw new NotImplementedException();
         }
 
-        List<List<string>> IMapable<string>.GetMap()
+        string IMapable<string>.GetMap()
         {
             throw new NotImplementedException();
         }
-        
     }
 }

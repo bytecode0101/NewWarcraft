@@ -14,22 +14,22 @@ namespace Assets.Script
     class FileMap<T> : IMapable<T> where T : class
     {
         string str;
-        SourceIO<T> headSource;
+        SerializerHandler<T> serializer;
         T map;
         T headClass;
                 
         public FileMap(string path, object headClass)
         {
             str = path;
-            DoSourceInit();
+            SerializerChainInit();
             MakeMap();
         }
         
-        private void DoSourceInit()
+        private void SerializerChainInit()
         {
-            headSource = new SourceIOJson<T>();
-            SourceIO<T> sxml = new SourceIOXML<T>();
-            headSource.NextSource = sxml;
+            serializer = new JsonSerializerHandler<T>();
+            SerializerHandler<T> sxml = new XmlSerializerHandler<T>();
+            serializer.NextSource = sxml;
         }
 
         public void MakeMap()
@@ -41,7 +41,7 @@ namespace Assets.Script
         {
             var path = string.Format("{0}{1}{2}", Application.dataPath, GameSettings.BoardPath, str);
 
-            map = headSource.ManageLoad(SourceType.XML, path, headClass);
+            map = serializer.ManageLoad(SourceType.XML, path, headClass);
         }
 
         public T GetMap()

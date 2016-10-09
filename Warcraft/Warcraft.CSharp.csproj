@@ -63,12 +63,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\UnityPackages\JsonNet\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -110,12 +104,14 @@
     <Compile Include="Assets\Script\StandardAssetFollowTarget.cs" />
     <Compile Include="Assets\Script\States\AssetMap.cs" />
     <Compile Include="Assets\Script\States\BoardPlayState.cs" />
+    <Compile Include="Assets\Script\Tile.cs" />
+    <Compile Include="Assets\Script\Utils\IOManager.cs" />
     <Compile Include="Assets\Script\UtilsIO\ISourceSerializable.cs" />
     <Compile Include="Assets\Script\UtilsIO\SerializerJson.cs" />
     <Compile Include="Assets\Script\UtilsIO\SerializerXML.cs" />
-    <Compile Include="Assets\Script\UtilsIO\SourceIO.cs" />
-    <Compile Include="Assets\Script\UtilsIO\SourceIOJson.cs" />
-    <Compile Include="Assets\Script\UtilsIO\SourceIOXML.cs" />
+    <Compile Include="Assets\Script\UtilsIO\SerializerHandler.cs" />
+    <Compile Include="Assets\Script\UtilsIO\JsonSerializerHandler.cs" />
+    <Compile Include="Assets\Script\UtilsIO\XmlSerializerHandler.cs" />
     <Compile Include="Assets\Script\UtilsIO\SourceType.cs" />
     <Compile Include="Assets\UnityPackages\JsonNetSample\JsonNetSample.cs" />
   </ItemGroup>

@@ -3,9 +3,9 @@ using System;
 
 namespace Assets.Script.UtilsIO
 {
-    abstract class SourceIO<T>
+    abstract class SerializerHandler<T>
     {
-        public SourceIO<T> NextSource { get; set; }
+        public SerializerHandler<T> NextSource { get; set; }
         public abstract T ManageLoad(SourceType sourceType, string path, T headClass);
         public abstract bool ManageSave(SourceType sourceType, string path, T headClass);
     }

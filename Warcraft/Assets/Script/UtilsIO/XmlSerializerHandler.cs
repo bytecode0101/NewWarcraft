@@ -3,11 +3,15 @@ using System;
 
 namespace Assets.Script.UtilsIO
 {
-    internal class SourceIOJson<T> : SourceIO<T> where T : class
+    internal class XmlSerializerHandler<T> : SerializerHandler<T> where T : class
     {
+        // could use a delegate as it stands because they look the same
+        // however that might change for a different source implementation
+        // still pondering about this
+
         public override T ManageLoad(SourceType sourceType, string path, T headClass)
         {
-            if (sourceType != SourceType.JSON)
+            if (sourceType != SourceType.XML)
             {
                 if (NextSource != null)
                 {
@@ -16,8 +20,8 @@ namespace Assets.Script.UtilsIO
             }
             else
             {
-                var srjson = new SerializerJson();
-                return srjson.Load(path) as T;
+                var srxml = new SerializerXML();
+                return srxml.Load(path) as T;
             }
 
             return null;
@@ -25,17 +29,17 @@ namespace Assets.Script.UtilsIO
 
         public override bool ManageSave(SourceType sourceType, string path, T headClass)
         {
-            if (sourceType != SourceType.JSON)
+            if (sourceType != SourceType.XML)
             {
                 if (NextSource != null)
                 {
-                    return NextSource.ManageSave(sourceType, path, headClass);
+                    return ManageSave(sourceType, path, headClass);
                 }
             }
             else
             {
-                var srjson = new SerializerJson();
-                return srjson.Save(path, this);
+                var srxml = new SerializerXML();
+                return srxml.Save(path, this);
             }
 
             return false;

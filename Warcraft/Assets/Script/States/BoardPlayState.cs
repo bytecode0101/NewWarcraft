@@ -42,7 +42,7 @@ namespace Assets.Script.States
             {
                 var fileMap = new FileMap<BoardTiles.TileContainer>(currentBoardMapPath, new BoardTiles.TileContainer());
                 var currentStringMap = fileMap.GetMap();
-                var assetMap = new AssetMap(currentStringMap);
+                //var assetMap = new AssetMap(currentStringMap);
                 //var currentBoardMap = assetMap.GetMap();
             }
         }
