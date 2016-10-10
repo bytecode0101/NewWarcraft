@@ -7,6 +7,9 @@ using System.Xml.Serialization;
 
 namespace Assets.Script.BoardTiles
 {
+    /// <summary>
+    /// A space container / tile container for the board. Used to populate board ( conversion from serialized / deserialized to gameObject is done -JUST- partially with the help of this)
+    /// </summary>
     [XmlRoot("XMLMap")]
     public class TileContainer
     {

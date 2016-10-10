@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
 
+/// <summary>
+/// TODO: Is this still necessary?
+/// </summary>
 [Serializable()]
 class Point
 {

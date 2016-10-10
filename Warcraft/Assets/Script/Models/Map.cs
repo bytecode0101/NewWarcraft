@@ -8,6 +8,9 @@ using System.Xml.Serialization;
 
 namespace Assets.Script.Models
 {
+    /// <summary>
+    /// TODO: Is this still necessary?
+    /// </summary>
     public class Map
     {
         public string[] mapRows = new string[16];

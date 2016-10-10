@@ -1,4 +1,4 @@
-﻿namespace Assets.Script.Interfaces
+﻿namespace Assets.Script.States
 {
     public interface IState
     {

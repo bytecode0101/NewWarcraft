@@ -17,195 +17,126 @@ class Game
 class Main : MonoBehaviour
 {
     public GameObject prefabDiceGUI;
-    public GameObject prefabPawn;
+    public List<GameObject> boardPawns;
     public GameObject prefabPlayerPanel;
     public List<GameObject> prefabTiles;
-    public List<GameObject> boardPawns;
-    public List<List<GameObject>> currentBoardMap;
+
+    public GameObject boardObjectsHolder;
+    public GameObject boardFloor;
+
     public string currentBoardMapPath;
 
-    private Dictionary<string, GameObject> prefabs;
-
-  
-
-    public void Start()
-    {
-        InitPrefabs();
-        sharedMap = new SharedMap();
-        currentBoardMapPath = "map001.xml";
-        var MyState = new BoardPlayState(this);
-        MyState.DoState();
-    }
-
-    private void InitPrefabs()
-    {
-        prefabs = new Dictionary<string, GameObject>();
-
-        foreach (var prefabTile in prefabTiles)
-        {
-            prefabs.Add(prefabTile.name.ToLower(), prefabTile);
-        }
-    }
-    /// <summary>
-    /// ////////////////////////////////////////////////////////
-    /// </summary>
-
-    //
-    // !! Space data is only temporary. remove after testing to something more well thought
-    //
-    public Text debugDiceMovementObj;
-
-    int startOnWidth = 0;
-    int startOnHeight = 0;
-
-    public SharedMap sharedMap;
     GameSettings gameSettings = new GameSettings();
 
-    public GameObject boardHolder;
+    public float tileDistanceX = 10f;
+    public float tileDistanceY = 10f;
+    internal bool isBoardInitiated = false;
+    
+    internal StateType prevStateType { get; set; }
+    internal StateType currentStateType { get; set; }
 
-    public GameObject emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace, baseSpace;
+    Dictionary<StateType, IState> states;
+    
+    public void Start()
+    {
+        currentBoardMapPath = "map001.xml";
+        states = new Dictionary<StateType, IState>();
+        states.Add(StateType.BoardInitState, new BoardInitState(this));
+        states.Add(StateType.IdlePlayState, new IdlePlayState(this));
+        states.Add(StateType.MovePlayState, new MovePlayState(this));
+
+        prevStateType = StateType.NoState;
+        currentStateType = StateType.BoardInitState;
+    }
+
+    void Update()
+    {
+        if (prevStateType != currentStateType)
+        {
+            // Set a state - temporary whilst the main menu is not present
+            switch (currentStateType)
+            {
+                case StateType.BoardInitState:
+                    states[currentStateType].DoState();
+                    ChangeStates(currentStateType, StateType.IdlePlayState);
+                    break;
+
+                case StateType.IdlePlayState:
+                    states[currentStateType].DoState();
+                    break;
+
+                case StateType.MovePlayState:
+                    states[currentStateType].DoState();
+                    ChangeStates(currentStateType, StateType.IdlePlayState);
+                    break;
+
+                default:
+                    break;
+            }
+
+            ///
+            Main main = this;
+            var onX = main.playerStartPoint.x - main.boardPawns[GameSettings.playerTurn].transform.position.x;
+            var onZ = main.playerStartPoint.z - main.boardPawns[GameSettings.playerTurn].transform.position.z;
+            if (!main.playerNotMoving &&
+                Math.Abs(onX) < main.tileDistanceX &&
+                Math.Abs(onZ) < main.tileDistanceY)
+            {
+                main.boardPawns[GameSettings.playerTurn].transform.Translate(main.playerMoveTarget * Time.deltaTime * 1.5f);
+
+                //Camera.main.transform.position = new Vector3(PawnObject[GameSettings.playerTurn].transform.position.x,
+                //                                              Camera.main.transform.position.y,
+                //                                            PawnObject[GameSettings.playerTurn].transform.position.z);
+            }
+            else
+            {
+                if (!main.playerNotMoving)
+                {
+                    main.playerNotMoving = true;
+                    main.boardPawns[GameSettings.playerTurn].transform.position = new Vector3(-105 + main.boardPawns[GameSettings.playerTurn].GetComponent<SpaceData>().X * main.tileDistanceX,
+                                                                    main.boardPawns[GameSettings.playerTurn].transform.position.y,
+                                                                    -75 + main.boardPawns[GameSettings.playerTurn].GetComponent<SpaceData>().Y * main.tileDistanceY);
+                }
+            }
+        }
+    }
+
+    internal void ChangeStates(StateType forPrevState, StateType forCurrentState)
+    {
+        prevStateType = forPrevState;
+        currentStateType = forCurrentState;
+    }
+
+    /// <summary>
+    /// /////////////////////////////////
+    /// </summary>
+    //public Text debugDiceMovementObj;
+
+    //public SharedMap sharedMap;
 
     public GameObject DiceGui, wonGui;
-
-    public List<GameObject> PawnObject = new List<GameObject>();
+    
 
     public List<GameObject> resourcesOnPawnP1 = new List<GameObject>();
     public List<GameObject> resourcesOnPawnP2 = new List<GameObject>();
 
     public List<GameObject> resourcesInBaseP1 = new List<GameObject>();
     public List<GameObject> resourcesInBaseP2 = new List<GameObject>();
-
-
-    public void aStart()
-    {
-        ElementInit();
-    }
-
-    Vector3 playerMoveTarget, playerStartPoint;
+    
+    internal Vector3 playerMoveTarget, playerStartPoint;
 
     public int debugDiceMovement = 0;
 
     public bool playerNotMoving = true;
-    public void Update()
-    {
+    
+    internal RaycastHit hit;
 
-        debugDiceMovement = GameSettings.diceMoves;
-
-        if (Input.GetMouseButtonDown(0) && playerNotMoving)
-        {
-            if (GameSettings.diceMoves > 0)
-            {
-
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100))
-                {
-
-                    var pawnPos = PawnObject[GameSettings.playerTurn].GetComponent<SpaceData>();
-                    var currPos = hit.transform.GetComponent<SpaceData>();
-
-                    // wall collide - to place in a switch | state area
-                    if (hit.transform.CompareTag("onBoardElement") )
-                       // && hit.transform.GetComponent<SpaceData>().x)
-                    {
-
-                        if (!(pawnPos.X == currPos.X && pawnPos.Y == currPos.Y) &&
-                            (((pawnPos.X + 1 == currPos.X || pawnPos.X - 1 == currPos.X) && pawnPos.Y == currPos.Y) ||
-                            ((pawnPos.Y + 1 == currPos.Y || pawnPos.Y - 1 == currPos.Y) && pawnPos.X == currPos.X)))
-                        {
-                            Debug.Log("Got here");
-                            var vec = new Vector3((currPos.X - pawnPos.X) * tileDistanceX,
-                                                                             0,
-                                                                             (currPos.Y - pawnPos.Y) * tileDistanceY);
-
-                            playerNotMoving = false;
-                            playerMoveTarget = vec;
-                            playerStartPoint = PawnObject[GameSettings.playerTurn].transform.position;
-
-                            pawnPos.X = currPos.X;
-                            pawnPos.Y = currPos.Y;
-
-                            // to use broadcast or navigate in node from diceThrower to the main since they are siblings
-                            GameSettings.diceMoves--;
-
-                            debugDiceMovementObj.text = GameSettings.diceMoves.ToString();
-
-                            var currHitState = hit.transform.GetComponent<MeshRenderer>().enabled;
-                            if (!hit.transform.name.Contains("Base3D") && currHitState)
-                            {
-                                ManageHitSpace(hit);
-                            }
-                            if (currHitState)
-                            {
-                                DoPlayerUpdate(hit);
-                            }
-
-
-                            CheckBattle();
-
-                            if (GameSettings.diceMoves == 0 && GameSettings.IsGameOn)
-                            {
-                                GameSettings.playerTurn = (++GameSettings.playerTurn) % GameSettings.totalPlayers;
-
-                                Camera.main.GetComponent<StandardAssetFollowTarget>().target = PawnObject[GameSettings.playerTurn].transform;
-
-                            }
-
-                            if (!GameSettings.IsGameOn)
-                            {
-                                Debug.Log("Game Ended! Someone won");
-                                DiceGui.SetActive(false);
-                                wonGui.SetActive(true);
-                                foreach (var item in PawnObject)
-                                {
-                                    item.SetActive(false);
-                                }
-                            }
-
-                        }
-                    }
-
-                }
-            }
-            else
-            {
-                // add logic here
-                Debug.developerConsoleVisible = true;
-                Debug.Log("Please roll dice to proceed");
-            }
-        }
-
-
-        var onX = playerStartPoint.x - PawnObject[GameSettings.playerTurn].transform.position.x;
-        var onZ = playerStartPoint.z - PawnObject[GameSettings.playerTurn].transform.position.z;
-        if (!playerNotMoving &&
-            Math.Abs(onX) < tileDistanceX &&
-            Math.Abs(onZ) < tileDistanceY)
-        {
-            PawnObject[GameSettings.playerTurn].transform.Translate(playerMoveTarget * Time.deltaTime * 1.5f);
-
-            //Camera.main.transform.position = new Vector3(PawnObject[GameSettings.playerTurn].transform.position.x,
-            //                                              Camera.main.transform.position.y,
-            //                                            PawnObject[GameSettings.playerTurn].transform.position.z);
-        }
-        else
-        {
-            if (!playerNotMoving)
-            {
-                playerNotMoving = true;
-                PawnObject[GameSettings.playerTurn].transform.position = new Vector3(-105 + PawnObject[GameSettings.playerTurn].GetComponent<SpaceData>().X * tileDistanceX,
-                                                                PawnObject[GameSettings.playerTurn].transform.position.y,
-                                                                -75 + PawnObject[GameSettings.playerTurn].GetComponent<SpaceData>().Y * tileDistanceY);
-            }
-        }
-    }
-
-    private void CheckBattle()
+    public void CheckBattle()
     {
         // place the judge pattern from here
     }
 
-    private void DoPlayerUpdate(RaycastHit hit)
+    public void DoPlayerUpdate(RaycastHit hit)
     {
         //emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace;
         // maybe a chain of command here?
@@ -248,17 +179,17 @@ class Main : MonoBehaviour
         }
     }
 
-    private void DangerResource()
+    public void DangerResource()
     {
         ChanceResource(2);
     }
 
-    private void MercenaryResource()
+    public void MercenaryResource()
     {
         ChanceResource(8);
     }
 
-    private void ChanceResource(int winChance)
+    public void ChanceResource(int winChance)
     {
         int res = UnityEngine.Random.Range(0, 10);
         int count = resourcesInBaseP1.Count;
@@ -287,7 +218,7 @@ class Main : MonoBehaviour
 
     }
 
-    private int DisplaceResources()
+    public int DisplaceResources()
     {
         int total = 0;
 
@@ -325,12 +256,12 @@ class Main : MonoBehaviour
         return total;
     }
 
-    private bool CheckIfGameWonTemporary(int total)
+    public bool CheckIfGameWonTemporary(int total)
     {
         return (total > GameSettings.winTarget);
     }
 
-    private void GetRandomResource()
+    public void GetRandomResource()
     {
         if (resourcesOnPawnP1.Count > 0)
         {
@@ -354,7 +285,7 @@ class Main : MonoBehaviour
         }
     }
 
-    private void ManageHitSpace(RaycastHit hit)
+    public void ManageHitSpace(RaycastHit hit)
     {
         var hitMesh = hit.transform.GetComponent<MeshRenderer>();
         hitMesh.enabled = false;
@@ -373,203 +304,13 @@ class Main : MonoBehaviour
         }
     }
 
-    void ElementInit()
-    {
-        var rowsSharedMap = TempSharedMap();
-        ListSharedMap(rowsSharedMap);
-    }
-
-    public float tileDistanceX = 10f;
-    public float tileDistanceY = 10f;
-    public int Width { get; internal set; }
-
-    void ListSharedMap(List<List<GameObject>> rowsSharedMap)
-    {
-        GameObject tempobj = null;
-
-        int offX = 0;
-        int offY = 0;
-        float onx = tileDistanceX;
-        float ony = tileDistanceY;
-
-        var itemCount = rowsSharedMap.Count;
-        var itemInCount = rowsSharedMap[0].Count;
-        sharedMap = new SharedMap(itemInCount, itemCount);
-
-        for (int j = 0; j < itemCount; j++)
-        {
-            for (var i = 0; i < itemInCount; i++)
-            {
-
-                tempobj = (GameObject)Instantiate(rowsSharedMap[j][i]);
-                tempobj.transform.SetParent(boardHolder.transform);
-                tempobj.transform.localPosition = new Vector3(i * onx + offX, tempobj.transform.localScale.y + .05f, j * ony + offY);
-
-                // temporary solution
-                tempobj.GetComponent<SpaceData>().X = i;
-                tempobj.GetComponent<SpaceData>().Y = j;
-
-                sharedMap.Spaces[i, j] = tempobj;
-            }
-        }
-
-        // temporary hack so that the resources get offseted in the center of the tile rather than the start of the tile
-        boardHolder.transform.Translate(new Vector3(5f, 0, 5f));
-    }
-
-    List<List<GameObject>> TempSharedMap()
+    /// <summary>
+    /// TODO: WIP or Deprecated?
+    /// </summary>
+    public List<List<GameObject>> TempSharedMap()
     {
         var rowsSharedMap = new List<List<GameObject>>();
-
-        rowsSharedMap.Add(new List<GameObject>() {
-                baseSpace, emptySpace, emptySpace, resourceSpace,
-                emptySpace, filledSpace, resourceSpace, filledSpace,
-                mercenarySpace, filledSpace, resourceSpace, emptySpace,
-                filledSpace, filledSpace, emptySpace, emptySpace,
-                emptySpace, emptySpace, emptySpace, emptySpace,
-                emptySpace, emptySpace });
-
-        rowsSharedMap.Add(new List<GameObject>() {
-                emptySpace, filledSpace, filledSpace, emptySpace,
-                emptySpace, filledSpace, dangerSpace, dangerSpace,
-                emptySpace, filledSpace, emptySpace, resourceSpace,
-                emptySpace, emptySpace, emptySpace, resourceSpace,
-                emptySpace, filledSpace, emptySpace, emptySpace,
-                filledSpace, emptySpace });
-
-        rowsSharedMap.Add(new List<GameObject>(){
-                emptySpace, emptySpace, filledSpace, dangerSpace,
-                filledSpace, filledSpace, resourceSpace, emptySpace,
-                emptySpace, filledSpace, filledSpace, filledSpace,
-                emptySpace, emptySpace, filledSpace, filledSpace,
-                emptySpace, filledSpace, resourceSpace, filledSpace,
-                emptySpace, emptySpace});
-
-        rowsSharedMap.Add(new List<GameObject>(){
-                emptySpace, emptySpace, resourceSpace, dangerSpace,
-                dangerSpace, emptySpace, resourceSpace, resourceSpace,
-                dangerSpace, emptySpace, mercenarySpace, filledSpace,
-                dangerSpace, emptySpace, dangerSpace, dangerSpace,
-                emptySpace, dangerSpace, resourceSpace, filledSpace,
-                dangerSpace, filledSpace});
-
-        rowsSharedMap.Add(new List<GameObject>(){
-                dangerSpace, emptySpace, filledSpace, emptySpace,
-                resourceSpace, filledSpace, filledSpace, emptySpace,
-                emptySpace, emptySpace, resourceSpace, mercenarySpace,
-                dangerSpace, filledSpace, mercenarySpace, resourceSpace,
-                emptySpace, dangerSpace, resourceSpace, dangerSpace,
-                dangerSpace, resourceSpace});
-
-        rowsSharedMap.Add(new List<GameObject>(){
-            resourceSpace,dangerSpace,filledSpace,filledSpace,
-            resourceSpace,emptySpace,filledSpace,resourceSpace,
-            emptySpace,filledSpace,filledSpace,filledSpace,
-            emptySpace,filledSpace,emptySpace,filledSpace,
-            emptySpace,filledSpace,filledSpace,filledSpace,
-            filledSpace,emptySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            filledSpace,emptySpace,emptySpace,dangerSpace,
-            dangerSpace,dangerSpace,filledSpace,resourceSpace,
-            dangerSpace,resourceSpace,filledSpace,resourceSpace,
-            emptySpace,dangerSpace,resourceSpace,resourceSpace,
-            resourceSpace,emptySpace,emptySpace,resourceSpace,
-            emptySpace,resourceSpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            resourceSpace,dangerSpace,emptySpace,filledSpace,
-            emptySpace,resourceSpace,resourceSpace,emptySpace,
-            emptySpace,emptySpace,filledSpace,filledSpace,
-            emptySpace,filledSpace,filledSpace,dangerSpace,
-            dangerSpace,filledSpace,mercenarySpace,emptySpace,
-            dangerSpace,filledSpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            filledSpace,emptySpace,filledSpace,filledSpace,
-            mercenarySpace,filledSpace,filledSpace,mercenarySpace,
-            resourceSpace,resourceSpace,filledSpace,mercenarySpace,
-            dangerSpace,emptySpace,emptySpace,emptySpace,
-            emptySpace,filledSpace,filledSpace,resourceSpace,
-            emptySpace,mercenarySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            emptySpace,emptySpace,resourceSpace,filledSpace,
-            emptySpace,dangerSpace,emptySpace,emptySpace,
-            emptySpace,resourceSpace,dangerSpace,dangerSpace,
-            resourceSpace,emptySpace,filledSpace,filledSpace,
-            emptySpace,emptySpace,filledSpace,resourceSpace,
-            emptySpace,filledSpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            dangerSpace,emptySpace,emptySpace,emptySpace,
-            emptySpace,emptySpace,filledSpace,dangerSpace,
-            dangerSpace,resourceSpace,filledSpace,filledSpace,
-            resourceSpace,dangerSpace,filledSpace,emptySpace,
-            filledSpace,filledSpace,filledSpace,emptySpace,
-            emptySpace,emptySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            dangerSpace,filledSpace,emptySpace,dangerSpace,
-            filledSpace,resourceSpace,emptySpace,emptySpace,
-            emptySpace,emptySpace,emptySpace,emptySpace,
-            dangerSpace,emptySpace,emptySpace,dangerSpace,
-            emptySpace,emptySpace,dangerSpace,mercenarySpace,
-            filledSpace,emptySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            emptySpace,dangerSpace,emptySpace,emptySpace,
-            filledSpace,resourceSpace,mercenarySpace,filledSpace,
-            emptySpace,filledSpace,dangerSpace,resourceSpace,
-            dangerSpace,emptySpace,filledSpace,emptySpace,
-            filledSpace,emptySpace,emptySpace,emptySpace,
-            filledSpace,emptySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            emptySpace,filledSpace,resourceSpace,emptySpace,
-            emptySpace,emptySpace,emptySpace,dangerSpace,
-            emptySpace,filledSpace,dangerSpace,emptySpace,
-            emptySpace,resourceSpace,filledSpace,filledSpace,
-            filledSpace,emptySpace,dangerSpace,filledSpace,
-            resourceSpace,emptySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            emptySpace,filledSpace,emptySpace,dangerSpace,
-            filledSpace,filledSpace,mercenarySpace,dangerSpace,
-            emptySpace,mercenarySpace,emptySpace,filledSpace,
-            emptySpace,resourceSpace,emptySpace,emptySpace,
-            emptySpace,filledSpace,emptySpace,filledSpace,
-            resourceSpace,emptySpace
-        });
-
-        rowsSharedMap.Add(new List<GameObject>()
-        {
-            emptySpace,emptySpace,dangerSpace,resourceSpace,
-            resourceSpace,dangerSpace,emptySpace,filledSpace,
-            filledSpace,dangerSpace,emptySpace,filledSpace,
-            filledSpace,resourceSpace,resourceSpace,filledSpace,
-            dangerSpace,resourceSpace,resourceSpace,dangerSpace,
-            dangerSpace,baseSpace
-        });
-
+        
         Map m = new Map();
 
         int y = 0;
@@ -587,27 +328,4 @@ class Main : MonoBehaviour
         return rowsSharedMap;
     }
 
-    public void InstantiateGameObject(Tile tile, int i)
-    {
-        float tileDistanceX = GameSettings.DistanceX;
-        float tileDistanceY = GameSettings.DistanceY;
-        float offsetX = 5;
-        float offsetY = 5;
-        float onx = tileDistanceX;
-        float ony = tileDistanceY;
-
-        if (prefabs.Keys.Contains(tile.value))
-        {
-            var prefab = prefabs[tile.value];
-            var tempObj = (GameObject)Instantiate(prefab);
-            tempObj.transform.SetParent(boardHolder.transform);
-            var row = i / Width;
-            var cell = i % Width;
-            tempObj.transform.localPosition = new Vector3(row * onx + offsetX, tempObj.transform.localScale.y + .05f, cell * ony + offsetY);
-
-            tempObj.GetComponent<SpaceData>().X = row;
-            tempObj.GetComponent<SpaceData>().Y = cell;
-            //UpdateTile(row, cell, tempObj);
-        }
-    }
 }

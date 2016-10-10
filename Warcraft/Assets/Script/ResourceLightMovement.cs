@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// TODO: Is this still necessary?
+/// </summary>
 public class ResourceLightMovement : MonoBehaviour {
 
 	// Use this for initialization

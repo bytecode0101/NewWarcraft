@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
+/// <summary>
+/// TODO: Is this still necessary?
+/// </summary>
 namespace Assets.Script
 {
     [Serializable()]
