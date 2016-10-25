@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <XMLMap width="22" height="16">
 	<Tiles>
-		<Tile value="base3d"/>
+		<Tile value="base3d" isABaseTile="true"/>
 		<Tile value="empty3d"/>
 		<Tile value="empty3d"/>
 		<Tile value="resource3d">
@@ -776,6 +776,6 @@
 		</Tile>
 		<Tile value="danger3d"/>
 		<Tile value="danger3d"/>
-		<Tile value="base3d"/>
+		<Tile value="base3d" isABaseTile="true"/>
 	</Tiles>
 </XMLMap>

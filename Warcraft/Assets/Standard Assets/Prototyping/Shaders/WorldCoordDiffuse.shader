@@ -1,7 +1,7 @@
 Shader "Custom/WorldCoord Diffuse" {
 Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
-	_MainTex ("Base (RGB)", 2D) = "white" {}
+	_MainTex ("Base (RGB)", 2D) = "wboardElemHite" {}
 	_BaseScale ("Base Tiling", Vector) = (1,1,1,0)
 }
 

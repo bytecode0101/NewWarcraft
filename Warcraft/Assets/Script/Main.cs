@@ -14,36 +14,46 @@ class Game
     // gui elements get updated (observer)
 }
 
-class Main : MonoBehaviour
+/// <summary>
+/// MY SHORT TERM TARGETS (mainly remove the current code from main | see old bits to refactor region below
+/// - Think more about the functionality of the players and pawns (eg. what happens when a player has more than one pawn?
+/// - Do the player movement and other things in the player area but trigger it in one of the below states (?)
+/// - Tie -as mentioned in the comment above- an observer system.
+/// 
+/// 
+/// - I had the player and the TileResChild(AKA Resource) using the decorator pattern. Maybe not go too far from that idea or consider if still desired.
+/// 
+/// I do not see it as good practice to pass the main in every and each state and so on. It will probably creates a headache to manage this sort of approach. Use UML and revise
+/// 
+/// </summary>
+
+public class Main : MonoBehaviour
 {
     public GameObject prefabDiceGUI;
-    public List<GameObject> boardPawns;
     public GameObject prefabPlayerPanel;
+    public GameObject prefabBoardFloor;
     public List<GameObject> prefabTiles;
-
+    public List<GameObject> prefabPawns;
+    
     public GameObject boardObjectsHolder;
     public GameObject boardFloor;
 
-    public string currentBoardMapPath;
+    internal GameSettings gameSettings = new GameSettings();
 
-    GameSettings gameSettings = new GameSettings();
-
-    public float tileDistanceX = 10f;
-    public float tileDistanceY = 10f;
-    internal bool isBoardInitiated = false;
-    
     internal StateType prevStateType { get; set; }
     internal StateType currentStateType { get; set; }
 
+    internal PlayersManager PlayersManager { get; set; }
+
     Dictionary<StateType, IState> states;
-    
+
     public void Start()
     {
-        currentBoardMapPath = "map001.xml";
         states = new Dictionary<StateType, IState>();
         states.Add(StateType.BoardInitState, new BoardInitState(this));
         states.Add(StateType.IdlePlayState, new IdlePlayState(this));
         states.Add(StateType.MovePlayState, new MovePlayState(this));
+        states.Add(StateType.GameInitState, new GameInitState(this));
 
         prevStateType = StateType.NoState;
         currentStateType = StateType.BoardInitState;
@@ -51,61 +61,53 @@ class Main : MonoBehaviour
 
     void Update()
     {
-        if (prevStateType != currentStateType)
+
+        // state change // first loading boardInitState [see start method]
+        states[currentStateType].DoState();
+
+        /////
+        if (PlayersManager != null && PlayersManager.Players != null && PlayersManager.Players.Count > 1)
         {
-            // Set a state - temporary whilst the main menu is not present
-            switch (currentStateType)
+
+            PlayersManager.PawnsUpdate();
+            
+            if (gameSettings.BoardCameraCanTransition)
             {
-                case StateType.BoardInitState:
-                    states[currentStateType].DoState();
-                    ChangeStates(currentStateType, StateType.IdlePlayState);
-                    break;
-
-                case StateType.IdlePlayState:
-                    states[currentStateType].DoState();
-                    break;
-
-                case StateType.MovePlayState:
-                    states[currentStateType].DoState();
-                    ChangeStates(currentStateType, StateType.IdlePlayState);
-                    break;
-
-                default:
-                    break;
-            }
-
-            ///
-            Main main = this;
-            var onX = main.playerStartPoint.x - main.boardPawns[GameSettings.playerTurn].transform.position.x;
-            var onZ = main.playerStartPoint.z - main.boardPawns[GameSettings.playerTurn].transform.position.z;
-            if (!main.playerNotMoving &&
-                Math.Abs(onX) < main.tileDistanceX &&
-                Math.Abs(onZ) < main.tileDistanceY)
-            {
-                main.boardPawns[GameSettings.playerTurn].transform.Translate(main.playerMoveTarget * Time.deltaTime * 1.5f);
-
-                //Camera.main.transform.position = new Vector3(PawnObject[GameSettings.playerTurn].transform.position.x,
-                //                                              Camera.main.transform.position.y,
-                //                                            PawnObject[GameSettings.playerTurn].transform.position.z);
-            }
-            else
-            {
-                if (!main.playerNotMoving)
-                {
-                    main.playerNotMoving = true;
-                    main.boardPawns[GameSettings.playerTurn].transform.position = new Vector3(-105 + main.boardPawns[GameSettings.playerTurn].GetComponent<SpaceData>().X * main.tileDistanceX,
-                                                                    main.boardPawns[GameSettings.playerTurn].transform.position.y,
-                                                                    -75 + main.boardPawns[GameSettings.playerTurn].GetComponent<SpaceData>().Y * main.tileDistanceY);
-                }
+                var currPawnObj = PlayersManager.GetCurrentActivePlayer();
+                
+                Camera.main.transform.position = Vector3.MoveTowards(
+                                    new Vector3(Camera.main.transform.position.x, 70, Camera.main.transform.position.z),
+                                    new Vector3(currPawnObj.transform.position.x,
+                                    100,
+                                    currPawnObj.transform.position.z),
+                                    /* Time.deltaTime */ 1);
             }
         }
     }
 
-    internal void ChangeStates(StateType forPrevState, StateType forCurrentState)
+    /// <summary>
+    /// Change between states
+    /// </summary>
+    /// <param name="forPrevState">Maybe useful for a go back option scenario?</param>
+    /// <param name="forCurrentState">The state to switch to</param>
+    internal void ChangeState(StateType forPrevState, StateType forCurrentState)
     {
         prevStateType = forPrevState;
         currentStateType = forCurrentState;
     }
+
+    internal void SetCurrentActivePawn()
+    {
+        if (GameSettings.DiceMoves == 0 && gameSettings.IsGameOn)
+        {
+            gameSettings.playerTurn = (gameSettings.playerTurn + 1) % gameSettings.totalPlayers;
+
+            //Camera.main.GetComponent<StandardAssetFollowTarget>().target = boardPawns[gameSettings.playerTurn].transform;
+
+            // InvokeRepeating("PawnTransitionCamera", 0, .3f);
+        }
+    }
+    #region old bits to refactor
 
     /// <summary>
     /// /////////////////////////////////
@@ -116,7 +118,6 @@ class Main : MonoBehaviour
 
     public GameObject DiceGui, wonGui;
     
-
     public List<GameObject> resourcesOnPawnP1 = new List<GameObject>();
     public List<GameObject> resourcesOnPawnP2 = new List<GameObject>();
 
@@ -128,19 +129,19 @@ class Main : MonoBehaviour
     public int debugDiceMovement = 0;
 
     public bool playerNotMoving = true;
-    
-    internal RaycastHit hit;
+
+    internal RaycastHit boardElemHit;
 
     public void CheckBattle()
     {
         // place the judge pattern from here
     }
 
-    public void DoPlayerUpdate(RaycastHit hit)
+    public void DoPlayerUpdate(RaycastHit boardElemHit)
     {
         //emptySpace, filledSpace, dangerSpace, mercenarySpace, resourceSpace;
         // maybe a chain of command here?
-        if (hit.transform.name.Contains("Resource3D")) // maybe use a tag here?
+        if (boardElemHit.transform.name.Contains("Resource3D")) // maybe use a tag here?
         {
 
             //show the dialog
@@ -148,14 +149,14 @@ class Main : MonoBehaviour
             GetRandomResource();
 
         }
-        else if (hit.transform.name.Contains("Danger3D")) // maybe use a tag here?
+        else if (boardElemHit.transform.name.Contains("Danger3D")) // maybe use a tag here?
         {
             DangerResource();
 
             //show the dialog
             // a random card. pay some resources / fight / flee (with some chances of escape
         }
-        else if (hit.transform.name.Contains("Mercenary3D")) // maybe use a tag here?
+        else if (boardElemHit.transform.name.Contains("Mercenary3D")) // maybe use a tag here?
         {
             MercenaryResource();
 
@@ -164,7 +165,7 @@ class Main : MonoBehaviour
             // a risk that they will be swayed by your opponent when they siege your place
             // change some resources for others
         }
-        else if (hit.transform.name.Contains("Base3D"))
+        else if (boardElemHit.transform.name.Contains("Base3D"))
         {
             int total = DisplaceResources();
 
@@ -172,7 +173,7 @@ class Main : MonoBehaviour
             /////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////
             var res = CheckIfGameWonTemporary(total);
-            if (res) GameSettings.IsGameOn = false;
+            if (res) gameSettings.IsGameOn = false;
             /////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////
@@ -194,7 +195,7 @@ class Main : MonoBehaviour
         int res = UnityEngine.Random.Range(0, 10);
         int count = resourcesInBaseP1.Count;
 
-        var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
+        var resourceOnPawn = (gameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
 
         while (res - winChance > 0)
         {
@@ -226,8 +227,8 @@ class Main : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
 
-            var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
-            var resourcesInBase = (GameSettings.playerTurn == 0) ? resourcesInBaseP1 : resourcesInBaseP2;
+            var resourceOnPawn = (gameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
+            var resourcesInBase = (gameSettings.playerTurn == 0) ? resourcesInBaseP1 : resourcesInBaseP2;
 
             var tempComponent = resourceOnPawn[i].GetComponentInChildren<Text>();
             var tempComponentBase = resourcesInBase[i].GetComponentInChildren<Text>();
@@ -258,14 +259,14 @@ class Main : MonoBehaviour
 
     public bool CheckIfGameWonTemporary(int total)
     {
-        return (total > GameSettings.winTarget);
+        return (total > gameSettings.winTarget);
     }
 
     public void GetRandomResource()
     {
         if (resourcesOnPawnP1.Count > 0)
         {
-            var resourceOnPawn = (GameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
+            var resourceOnPawn = (gameSettings.playerTurn == 0) ? resourcesOnPawnP1 : resourcesOnPawnP2;
 
             var tempResource = resourceOnPawn[(int)UnityEngine.Random.Range(0,
                                                 resourceOnPawn.Count)];
@@ -285,17 +286,17 @@ class Main : MonoBehaviour
         }
     }
 
-    public void ManageHitSpace(RaycastHit hit)
+    public void ManageboardElemHitSpace(RaycastHit boardElemHit)
     {
-        var hitMesh = hit.transform.GetComponent<MeshRenderer>();
-        hitMesh.enabled = false;
+        var boardElemHitMesh = boardElemHit.transform.GetComponent<MeshRenderer>();
+        boardElemHitMesh.enabled = false;
 
-        var hitChild = hit.transform.gameObject.GetComponentsInChildren<MeshRenderer>();
-        if (hitChild != null)
+        var boardElemHitChild = boardElemHit.transform.gameObject.GetComponentsInChildren<MeshRenderer>();
+        if (boardElemHitChild != null)
         {
-            foreach (var item in hitChild)
+            foreach (var item in boardElemHitChild)
             {
-                if (item.gameObject != hitMesh.gameObject)
+                if (item.gameObject != boardElemHitMesh.gameObject)
                 {
                     item.enabled = true;
                     break;
@@ -304,28 +305,30 @@ class Main : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// TODO: WIP or Deprecated?
-    /// </summary>
-    public List<List<GameObject>> TempSharedMap()
-    {
-        var rowsSharedMap = new List<List<GameObject>>();
-        
-        Map m = new Map();
+    ///// <summary>
+    ///// TODO: WIP or Deprecated?
+    ///// </summary>
+    //public List<List<GameObject>> TempSharedMap()
+    //{
+    //    var rowsSharedMap = new List<List<GameObject>>();
 
-        int y = 0;
-        foreach (var row in rowsSharedMap)
-        {
-            int x = 0;
-            foreach (var cell in row)
-            {
-                m.UpdateCell(y, x, rowsSharedMap[y][x].name);
-                x++;
-            }
-            x = 0;
-            y++;
-        }
-        return rowsSharedMap;
-    }
+    //    Map m = new Map();
+
+    //    int y = 0;
+    //    foreach (var row in rowsSharedMap)
+    //    {
+    //        int x = 0;
+    //        foreach (var cell in row)
+    //        {
+    //            m.UpdateCell(y, x, rowsSharedMap[y][x].name);
+    //            x++;
+    //        }
+    //        x = 0;
+    //        y++;
+    //    }
+    //    return rowsSharedMap;
+    //}
+
+    #endregion
 
 }

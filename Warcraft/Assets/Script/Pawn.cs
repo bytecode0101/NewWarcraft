@@ -3,93 +3,71 @@ using System.Collections;
 using System;
 using System.Xml.Serialization;
 
+using Assets.Script.BoardTiles;
+using System.Collections.Generic;
+
+interface IPawnable{
+    int MoveTo();
+    bool CanMove();
+    int Attack(int id);
+    void Respawn();
+    void TakeDamage(int[] damage);
+
+    TileResChild Collect();
+}
+
 [Serializable()]
-public class Pawn : MonoBehaviour
+public class Pawn : IPawnable
 {
-    private int battery;
-    private Point position;
-    private int id;
+    internal GameObject PawnObject { get; private set; }
 
-    [XmlElement("Position")]
-    internal Point Position
-    {
-        get
-        {
-            return position;
-        }
-
-        set
-        {
-            position = value;
-        }
-    }
-
-    [XmlElement("Id")]
-    internal int Id
-    {
-        get
-        {
-            return id;
-        }
-
-        set
-        {
-            id = value;
-        }
-    }
+    internal List<Resource> Resources { get; private set; }
 
     [XmlElement("Battery")]
-    internal int Battery
-    {
-        get
-        {
-            return battery;
-        }
+    internal int Battery { get; set; }
 
-        set
-        {
-            battery = value;
-        }
+    [XmlElement("OffensePower")]
+    internal int OffensePower { get; set; }
+
+    [XmlElement("DefensePower")]
+    internal int DefensePower { get; set; }
+    
+    // TODO: maybe add the weight ones to the inventory class
+    [XmlElement("WeightLimit")]
+    internal int WeightLimit { get; set; }
+    internal int CurrentWeight { get; set; }
+
+    public Pawn(GameObject pawnObject)
+    {
+        PawnObject = pawnObject;
     }
 
-    internal int MoveTo()
+    public int MoveTo()
     {
         return 0;
     }
 
-    internal bool CanMove()
+    public bool CanMove()
     {
         return true;
     }
 
-    internal Resource Collect()
+    public TileResChild Collect()
     {
         return null;
     }
 
-    internal int Attack(int id)
+    public int Attack(int id)
     {
         return 0;
     }
 
-    internal void Respawn()
+    public void Respawn()
     {
 
     }
 
-    internal void TakeDamage(int[] damage)
-    {
-
-    }
-
-    // Use this for initialization
-    internal void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    internal void Update()
+    public void TakeDamage(int[] damage)
     {
 
     }

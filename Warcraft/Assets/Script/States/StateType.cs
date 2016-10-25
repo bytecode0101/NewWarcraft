@@ -10,6 +10,7 @@ namespace Assets.Script.States
         BoardInitState,
         IdlePlayState,
         MovePlayState,
-        NoState
+        NoState,
+        GameInitState
     }
 }

@@ -49,7 +49,7 @@ public class DiceThrower : MonoBehaviour {
 
     public void Throw()
     {
-        if (GameSettings.diceMoves == 0)
+        if (GameSettings.DiceMoves == 0)
         {
             int index = 0;
             int diceSum = 0;
@@ -60,7 +60,7 @@ public class DiceThrower : MonoBehaviour {
                 diceSum += item.Throw();
                 Debug.Log(valueReceived);
                 DicesTexts[index].text = "Dice [" + (index + 1) + "]: " + valueReceived;
-                GameSettings.diceMoves += valueReceived;
+                GameSettings.DiceMoves += valueReceived;
                 index++;
             }
             // the hasAdvantage was for the case where the pawn got

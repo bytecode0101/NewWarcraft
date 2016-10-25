@@ -12,8 +12,6 @@ namespace Assets.Script.States
     {
         Main main;
         
-        public int Width { get; internal set; }
-
         public BoardInitState(Main main)
         {
             this.main = main;
@@ -21,7 +19,11 @@ namespace Assets.Script.States
 
         public void DoState()
         {
-            ReadMap();
+            if (main.gameSettings.BoardData.IsBoardInitiated != true)
+            {
+                ReadMap();
+            }
+            main.ChangeState(main.currentStateType, StateType.GameInitState);
         }
         
         /// <summary>
@@ -29,13 +31,12 @@ namespace Assets.Script.States
         /// </summary>
         private void ReadMap()
         {
-            if (main.isBoardInitiated != true)
-            {
-                var fileMap = new FileMap<TileContainer>(main.currentBoardMapPath, new TileContainer());
-                var currentFileMap = fileMap.GetMap();
+            var fileMap = new FileMap<TileContainer>(main.gameSettings.BoardData.CurrentBoardMapPath, new TileContainer());
+            var currentFileMap = fileMap.GetMap();
 
-                InitFromFileMap(currentFileMap);                
-            }
+            InitFromFileMap(currentFileMap);
+
+            main.gameSettings.BoardData.IsBoardInitiated = true;
         }
 
         /// <summary>
@@ -44,7 +45,8 @@ namespace Assets.Script.States
         /// <param name="currentFileMap"></param>
         private void InitFromFileMap(TileContainer currentFileMap)
         {
-            var assetMap = new AssetMap(currentFileMap, main.boardObjectsHolder.transform, main);
+            //var assetMap = 
+                new AssetMap(currentFileMap, main.boardObjectsHolder.transform, main);
         }
     }
 }

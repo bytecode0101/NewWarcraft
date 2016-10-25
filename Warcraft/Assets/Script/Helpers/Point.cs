@@ -73,4 +73,9 @@ class Point
     {
         return new Point(p1.X - variable, p1.Y - variable);
     }
+
+    public override string ToString()
+    {
+        return X + ", " + Y;
+    }
 }

@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.2.3f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,11 +51,17 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -79,6 +83,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\BoardData.cs" />
     <Compile Include="Assets\Script\BoardTiles\Tile.cs" />
     <Compile Include="Assets\Script\BoardTiles\TileContainer.cs" />
     <Compile Include="Assets\Script\BoardTiles\TileResChild.cs" />
@@ -101,12 +106,15 @@
     <Compile Include="Assets\Script\Models\Map.cs" />
     <Compile Include="Assets\Script\Pawn.cs" />
     <Compile Include="Assets\Script\PawnData.cs" />
+    <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\PlayersManager.cs" />
     <Compile Include="Assets\Script\Resource.cs" />
     <Compile Include="Assets\Script\ResourceLightMovement.cs" />
     <Compile Include="Assets\Script\SharedMap.cs" />
     <Compile Include="Assets\Script\SpaceData.cs" />
     <Compile Include="Assets\Script\StandardAssetFollowTarget.cs" />
     <Compile Include="Assets\Script\States\BoardInitState.cs" />
+    <Compile Include="Assets\Script\States\GameInitState.cs" />
     <Compile Include="Assets\Script\States\IState.cs" />
     <Compile Include="Assets\Script\States\IdlePlayState.cs" />
     <Compile Include="Assets\Script\States\MovePlayState.cs" />

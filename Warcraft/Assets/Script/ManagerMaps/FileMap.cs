@@ -22,7 +22,9 @@ namespace Assets.Script.ManagerMaps
         string str;
         SerializerHandler<T> serializer;
         T map;
-        T headClass;  
+        T headClass;
+
+        GameSettings gameSettings;
 
         /// <summary>
         /// The file map constructor
@@ -31,6 +33,7 @@ namespace Assets.Script.ManagerMaps
         /// <param name="headClass">the object in which to place or get from data</param>
         public FileMap(string path, object headClass)
         {
+            gameSettings = new GameSettings();
             str = path;
             SerializerChainInit();
             MakeMap();
@@ -60,7 +63,7 @@ namespace Assets.Script.ManagerMaps
         /// <param name="str">A file path for a file different than the one given in ctor</param>
         public void MakeMap(string str)
         {
-            var path = string.Format("{0}{1}{2}", Application.dataPath, GameSettings.BoardPath, str);
+            var path = string.Format("{0}{1}{2}", Application.dataPath, BoardData.BoardPath, str);
 
             map = serializer.Load(SourceType.XML, path, headClass);
         }

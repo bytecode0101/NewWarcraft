@@ -13,12 +13,17 @@ namespace Assets.Script.BoardTiles
     /// </summary>
     public class Tile
     {
+        // A quick AHA. Place things as public; internal or something else will not work as expected
+
         [XmlAttribute("value")]
         public string value;
 
+        [XmlAttribute("isABaseTile")]
+        public bool isABaseTile;
+
         [XmlArray("TileResChildren"), XmlArrayItem("TileResChild")]
         public TileResChild[] TileResChildren;
-
+        
         [JsonIgnore, XmlIgnore]
         public GameObject gameObject;
     }

@@ -1,8 +1,11 @@
-﻿class GameSettings
+﻿using Assets.Script;
+using UnityEngine;
+
+class GameSettings
 {
     // temporary used static here. consider placing in another area
-    internal static int diceMoves = 0;
-    internal static bool hasDiceAdvantage = false;
+    internal static int DiceMoves = 0;
+    internal bool hasDiceAdvantage = false;
 
     //
     internal int NumberOfDices = 2;
@@ -10,10 +13,7 @@
 
     internal int DiceMin = 1;
     internal int DiceMax = 7;
-
-    internal int BoardWidth;
-    internal int BoardHeight;
-
+    
     internal float PercentageResources = .50F;
     internal float PercentageSpace = .20F;
     internal float PercentageNonSpace = .10F;
@@ -21,22 +21,28 @@
     internal float PercentageMercenery = .06F;
     internal float PercentageDangers = .08F;
     internal int ElementTypeCount;
-    internal static int totalPlayers = 2;
-    internal static int playerTurn = 0;
+    internal int totalPlayers = 2;
+    internal int playerTurn = 0;
 
-    public static bool IsGameOn = true;
-    internal static int winTarget = 10;
-
-    public static string BoardPath = "/StreamingAssets/Maps/";
-
-    public static float DistanceX = 10f;
-    public static float DistanceY = 10f;
+    public bool IsGameOn = true;
+    internal int winTarget = 10;
 
     public GameSettings()
     {
-        ElementTypeCount = ElementDefinition.GetNames(typeof(ElementDefinition)).Length;
-        BoardWidth = 10;//15 * NumberOfPlayers;
-        BoardHeight = 5;//10 * NumberOfPlayers;
+        //ElementTypeCount = ElementDefinition.GetNames(typeof(ElementDefinition)).Length;
+        BoardData = new BoardData();
+        PawnTransition = 1f;
+        PawnBaseMovementSpeed = 1.5f;
+        BoardCameraCanTransition = true;
     }
-    
+
+
+    /////    
+    internal string CurrentBoardMapPath { get; private set; }
+
+    internal float PawnBaseMovementSpeed { get; private set; }
+    internal float PawnTransition { get; private set; }
+
+    internal BoardData BoardData { get; private set; }
+    public bool BoardCameraCanTransition { get; set; }
 }
